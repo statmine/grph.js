@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="js/d3.v3.min.js"></script>
+
+    <script src="lib/wilkinson.js"></script>
+    <script src="lib/datapackage.js"></script>
+    <script src="lib/linear_scale.js"></script>
+    <script src="lib/linear_axis.js"></script>
+    <script src="lib/label_size.js"></script>
+    <script src="lib/line_graph.js"></script>
+    <script src="lib/colour_scale.js"></script>
+    <script src="lib/colour_axis.js"></script>
+    <script src="lib/split_axis.js"></script>
+    <script src="lib/axis_region.js"></script>
+    <script src="lib/graph_map.js"></script>
+    <script src="lib/axis_chloropleth.js"></script>
+
+    <style>
+      svg * {
+        font-family : Corbel, Helvetica, sans-serif;
+        font-size : 12px;
+      }
+      path, line {
+        stroke : #000000;
+        stroke-width : 0.5pt;
+        fill : none;
+      }
+      line.grid, line.tick {
+        stroke-width : 0.5pt;
+        stroke : #999999;
+      }
+      text.tick {
+        fill : black;
+      }
+      line.gridx {
+        stroke-width : 0px;
+      }
+      rect.background {
+        fill : none;
+        fill : #EEEEEE;
+        stroke : 0pt;
+      }
+      .crosshairs line {
+        stroke : #333333;
+        stroke-width : 0.5pt;
+        stroke-dasharray : 5,5;
+
+      }
+    </style>
+
+    <link href="css/colours.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <div id="graph">
+    </div>
+
+    <script type="text/javascript">
+
+      var w = 700, h = 700;
+
+      var data = [
+        {'gender' : 2011, 'region' : 'PO01', 'age' : '0-50', 'value' : 100},
+        {'gender' : 2011, 'region' : 'PO02', 'age' : '0-50', 'value' : 110}, 
+        {'gender' : 2011, 'region' : 'PO03', 'age' : '0-50', 'value' : 123}, 
+        {'gender' : 2011, 'region' : 'PO04', 'age' : '0-50', 'value' : 129}, 
+        {'gender' : 2011, 'region' : 'PO05', 'age' : '0-50', 'value' : 135}, 
+        {'gender' : 2011, 'region' : 'PO06', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO07', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO08', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO09', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO10', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO11', 'age' : '0-50', 'value' : 100},
+        {'gender' : 2011, 'region' : 'PO12', 'age' : '0-50', 'value' : 110}, 
+        {'gender' : 2011, 'region' : 'PO13', 'age' : '0-50', 'value' : 123}, 
+        {'gender' : 2011, 'region' : 'PO14', 'age' : '0-50', 'value' : 129}, 
+        {'gender' : 2011, 'region' : 'PO15', 'age' : '0-50', 'value' : 135}, 
+        {'gender' : 2011, 'region' : 'PO16', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO17', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO18', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO19', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO20', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO21', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO22', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO23', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO24', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2011, 'region' : 'PO25', 'age' : '0-50', 'value' : 101},
+        {'gender' : 2012, 'region' : 'PO01', 'age' : '0-50', 'value' : 100},
+        {'gender' : 2012, 'region' : 'PO02', 'age' : '0-50', 'value' : 110}, 
+        {'gender' : 2012, 'region' : 'PO03', 'age' : '0-50', 'value' : 123}, 
+        {'gender' : 2012, 'region' : 'PO04', 'age' : '0-50', 'value' : 129}, 
+        {'gender' : 2012, 'region' : 'PO05', 'age' : '0-50', 'value' : 135}, 
+        {'gender' : 2012, 'region' : 'PO06', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO07', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO08', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO09', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO10', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO11', 'age' : '0-50', 'value' : 100},
+        {'gender' : 2012, 'region' : 'PO12', 'age' : '0-50', 'value' : 110}, 
+        {'gender' : 2012, 'region' : 'PO13', 'age' : '0-50', 'value' : 123}, 
+        {'gender' : 2012, 'region' : 'PO14', 'age' : '0-50', 'value' : 129}, 
+        {'gender' : 2012, 'region' : 'PO15', 'age' : '0-50', 'value' : 135}, 
+        {'gender' : 2012, 'region' : 'PO16', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO17', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO18', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO19', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO20', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO21', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO22', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO23', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO24', 'age' : '0-50', 'value' : 148},
+        {'gender' : 2012, 'region' : 'PO25', 'age' : '0-50', 'value' : 101},
+        {'gender' : 2011, 'region' : 'PO01', 'age' : '50+', 'value' : 00},
+        {'gender' : 2011, 'region' : 'PO02', 'age' : '50+', 'value' : 10}, 
+        {'gender' : 2011, 'region' : 'PO03', 'age' : '50+', 'value' : 23}, 
+        {'gender' : 2011, 'region' : 'PO04', 'age' : '50+', 'value' : 29}, 
+        {'gender' : 2011, 'region' : 'PO05', 'age' : '50+', 'value' : 35}, 
+        {'gender' : 2011, 'region' : 'PO06', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO07', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO08', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO09', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO10', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO11', 'age' : '50+', 'value' : 00},
+        {'gender' : 2011, 'region' : 'PO12', 'age' : '50+', 'value' : 10}, 
+        {'gender' : 2011, 'region' : 'PO13', 'age' : '50+', 'value' : 23}, 
+        {'gender' : 2011, 'region' : 'PO14', 'age' : '50+', 'value' : 29}, 
+        {'gender' : 2011, 'region' : 'PO15', 'age' : '50+', 'value' : 35}, 
+        {'gender' : 2011, 'region' : 'PO16', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO17', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO18', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO19', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO20', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO21', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO22', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO23', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO24', 'age' : '50+', 'value' : 48},
+        {'gender' : 2011, 'region' : 'PO25', 'age' : '50+', 'value' : 01},
+        {'gender' : 2012, 'region' : 'PO01', 'age' : '50+', 'value' : 00},
+        {'gender' : 2012, 'region' : 'PO02', 'age' : '50+', 'value' : 10}, 
+        {'gender' : 2012, 'region' : 'PO03', 'age' : '50+', 'value' : 23}, 
+        {'gender' : 2012, 'region' : 'PO04', 'age' : '50+', 'value' : 29}, 
+        {'gender' : 2012, 'region' : 'PO05', 'age' : '50+', 'value' : 35}, 
+        {'gender' : 2012, 'region' : 'PO06', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO07', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO08', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO09', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO10', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO11', 'age' : '50+', 'value' : 00},
+        {'gender' : 2012, 'region' : 'PO12', 'age' : '50+', 'value' : 10}, 
+        {'gender' : 2012, 'region' : 'PO13', 'age' : '50+', 'value' : 23}, 
+        {'gender' : 2012, 'region' : 'PO14', 'age' : '50+', 'value' : 29}, 
+        {'gender' : 2012, 'region' : 'PO15', 'age' : '50+', 'value' : 35}, 
+        {'gender' : 2012, 'region' : 'PO16', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO17', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO18', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO19', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO20', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO21', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO22', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO23', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO24', 'age' : '50+', 'value' : 48},
+        {'gender' : 2012, 'region' : 'PO25', 'age' : '50+', 'value' : 1}
+      ];
+      var schema = {
+        'fields' : [
+          { 
+            'name' : 'region', 'title' : 'Politieregio', 
+            'description' : '', 'type' : 'region',
+            'map' : 'maps/po2012.json',
+            'regionid' : 'STATCODE'
+          }, { 
+            'name' : 'gender', 'title' : 'Gender',
+            'description' : '', 'type' : 'categorical',
+            'categories' : [
+              {'name': "1", 'title' : 'Male', 'description' : ''},
+              {'name': "2", 'title' : 'Female', 'description' : ''}
+            ]
+          }, { 
+            'name' : 'age', 'title' : 'Age',
+            'description' : '', 'type' : 'categorical',
+            'categories' : [
+              {'name': "0-50", 'title' : '0-49 years', 'description' : ''},
+              {'name': "50+", 'title' : '50 years and older', 'description' : ''}
+            ]
+          }, { 
+            'name' : 'value', 'title' : 'Value', 
+            'description' : '', 'type' : 'number'
+          }
+        ]
+      };
+
+      var svg = d3.select("#graph").insert("svg")
+        .attr("width", w).attr("height", h);
+
+      var graph = grph_graph_map().width(w).height(h).schema(schema).assign({
+        'region' : 'region',
+        'colour' : 'value',
+        'row' : 'gender',
+        'column' : 'age'
+      }).data(data);
+      graph(svg);
+
+
+      /*var raxis = grph_axis_region().assign('region').width(w-50).height(h-50)
+        .domain(data, schema);
+
+
+      wait_for(raxis.map_loaded, function() {
+        svg.selectAll("path").data(data).enter().append("path")
+          .attr("d", raxis.scale);
+        console.log(raxis.scale('PO01'));
+      });*/
+
+
+    </script>
+
+
+  </body>
+
+</html>
+
+
+
