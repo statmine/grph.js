@@ -6,13 +6,20 @@
     <script src="js/d3.v3.min.js"></script>
     <script src="lib/wilkinson.js"></script>
     <script src="lib/datapackage.js"></script>
-    <script src="lib/linear_scale.js"></script>
-    <script src="lib/linear_axis.js"></script>
     <script src="lib/label_size.js"></script>
-    <script src="lib/line_graph.js"></script>
-    <script src="lib/colour_scale.js"></script>
-    <script src="lib/colour_axis.js"></script>
-    <script src="lib/split_axis.js"></script>
+
+    <script src="lib/graph_line.js"></script>
+    <script src="lib/graph_map.js"></script>
+
+    <script src="lib/scale_linear.js"></script>
+    <script src="lib/scale_colour.js"></script>
+    <script src="lib/scale_chloropleth.js"></script>
+
+    <script src="lib/axis_colour.js"></script>
+    <script src="lib/axis_split.js"></script>
+    <script src="lib/axis_linear.js"></script>
+    <script src="lib/axis_region.js"></script>
+    <script src="lib/axis_chloropleth.js"></script>
 
     <style>
       svg * {
@@ -132,7 +139,7 @@
       var svg = d3.select("#graph").insert("svg")
         .attr("width", w).attr("height", h);
 
-      var graph = grph_line_graph();
+      var graph = grph_graph_line();
       graph.width(w).height(h).schema(schema).assign({
         'x' : 'year',
         'y' : 'value',
