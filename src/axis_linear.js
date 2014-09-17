@@ -9,13 +9,13 @@ function grph_axis_linear(horizontal) {
     "tick_length" : 5,
     "tick_padding" : 2,
     "padding" : 4
-  }
+  };
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "linearaxis dummy")
     .style("visibility", "invisible");
   var label_size_ = grph_label_size(dummy_);
-  if (horizontal_) scale_.label_size(label_size_.width) 
+  if (horizontal_) scale_.label_size(label_size_.width);
   else scale_.label_size(label_size_.height);
   
 
@@ -53,7 +53,7 @@ function grph_axis_linear(horizontal) {
     if (horizontal_) {
       // if horizontal the width is usually given; this defines the range of
       // the scale
-      if (arguments.length == 0) {
+      if (arguments.length === 0) {
         return width_;
       } else {
         width_ = width;
@@ -63,8 +63,8 @@ function grph_axis_linear(horizontal) {
     } else {
       // if vertical the width is usually defined by the graph: the space it
       // needs to draw the tickmarks and labels etc. 
-      if (arguments.length == 0) {
-        if (width_ == undefined) {// TODO reset width_ when labels change
+      if (arguments.length === 0) {
+        if (width_ === undefined) {// TODO reset width_ when labels change
           var ticks = scale_.ticks();
           var w = 0;
           for (var i = 0; i < ticks.length; ++i) {
@@ -79,14 +79,14 @@ function grph_axis_linear(horizontal) {
         return this;
       }
     }
-  }
+  };
 
   axis.height = function(height) {
     if (horizontal_) {
       // if horizontal the width is usually defined by the graph: the space it
       // needs to draw the tickmarks and labels etc. 
-      if (arguments.length == 0) {
-        if (height_ == undefined) { // TODO reset height_ when labels change
+      if (arguments.length === 0) {
+        if (height_ === undefined) { // TODO reset height_ when labels change
           var ticks = scale_.ticks();
           var h = 0;
           for (var i = 0; i < ticks.length; ++i) {
@@ -103,7 +103,7 @@ function grph_axis_linear(horizontal) {
     } else {
       // if vertical the width is usually given; this defines the range of
       // the scale
-      if (arguments.length == 0) {
+      if (arguments.length === 0) {
         return height_;
       } else {
         height_ = height;
@@ -111,35 +111,35 @@ function grph_axis_linear(horizontal) {
         return this;
       }
     }
-  }
+  };
 
   axis.accept = function(variable, schema) {
     var vschema = variable_schema(variable, schema);
     return vschema.type == 'number';
-  }
+  };
 
   axis.variable = function(v) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return variable_;
     } else {
       variable_ = v;
       return this;
     }
-  }
+  };
 
   axis.domain = function(data, schema) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return scale_.domain();
     } else {
       var range = d3.extent(data, function(d) { return d[variable_];});
       scale_.domain(range).nice();
       return this;
     }
-  }
+  };
 
   axis.ticks = function() {
     return scale_.ticks();
-  }
+  };
 
   axis.scale = function(v) {
     if (typeof v == 'object') { 
@@ -147,7 +147,7 @@ function grph_axis_linear(horizontal) {
     } else {
       return scale_(v);
     }
-  }
+  };
 
   return axis;
 }

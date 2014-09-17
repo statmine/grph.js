@@ -1,5 +1,5 @@
 
-grph_label_size = function(g) {
+function grph_label_size(g) {
 
   // a svg or g element to which  we will be adding our label in order to
   // request it's size
@@ -24,23 +24,23 @@ grph_label_size = function(g) {
   }
 
   label_size.svg = function(g) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return g_;
     } else {
       g_ = g;
       return this;
     }
-  }
+  };
 
   label_size.width = function(label) {
     var size = label_size(label);
     return size[0];
-  }
+  };
 
   label_size.height = function(label) {
     var size = label_size(label);
     return size[1];
-  }
+  };
 
   return label_size;
 }

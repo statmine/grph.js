@@ -50,12 +50,13 @@ function grph_graph_line() {
     // iterations for this, as the height of the y-axis depends of the height
     // of the x-axis, which depends on the labels of the x-axis, which depends
     // on the width of the x-axis, etc. 
+    var w, h;
     for (var i = 0; i < 2; ++i) {
-      var w = graph.width() - settings.padding[1] - settings.padding[3] - 
+      w = graph.width() - settings.padding[1] - settings.padding[3] - 
         axes.y.width() - label_height;
       w = (w - (ncol-1)*settings.sep) / ncol;
       axes.x.width(w).domain(graph.data(), graph.schema());
-      var h = graph.height() - settings.padding[0] - settings.padding[2] - 
+      h = graph.height() - settings.padding[0] - settings.padding[2] - 
         axes.x.height() - label_height;
       h = (h - (nrow-1)*settings.sep) / nrow;
       axes.y.height(h).domain(graph.data(), graph.schema());
@@ -78,9 +79,9 @@ function grph_graph_line() {
 
     var d = d3.nest().key(nest_column).key(nest_row).key(nest_colour).entries(graph.data());
 
-    for (var i = 0; i < d.length; ++i) {
+    for (i = 0; i < d.length; ++i) {
       var dj = d[i].values;
-      var t  = settings.padding[2];
+      t  = settings.padding[2];
       for (var j = 0; j < dj.length; ++j) {
         // draw x-axis
         if (j == (dj.length-1)) {
@@ -88,7 +89,7 @@ function grph_graph_line() {
             .attr("transform", "translate(" + l + "," + (t + h) + ")").call(axes.x);
         }
         // draw y-axis
-        if (i == 0) {
+        if (i === 0) {
           g.append("g").attr("class", "xaxis")
             .attr("transform", "translate(" + (l - axes.y.width()) + "," + t + ")")
             .call(axes.y);
@@ -118,7 +119,7 @@ function grph_graph_line() {
           .attr("y1", 0).attr("x2", 0).attr("y2", axes.y.height())
           .style("visibility", "hidden");
         // draw lines 
-        var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale) 
+        var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale);
         var dk = dj[j].values;
         for (var k = 0; k < dk.length; ++k) {
           gr.append("path").attr("d", line(dk[k].values))
@@ -126,8 +127,8 @@ function grph_graph_line() {
             .datum(dk[k]);
         }
         // draw points 
-        var dk = dj[j].values;
-        for (var k = 0; k < dk.length; ++k) {
+        dk = dj[j].values;
+        for (k = 0; k < dk.length; ++k) {
           var cls = "circle" + k;
           gr.selectAll("circle.circle" + k).data(dk[k].values).enter().append("circle")
             .attr("class", "circle" + k + " " + axes.colour.scale(dk[k].key))

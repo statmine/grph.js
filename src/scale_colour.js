@@ -16,27 +16,27 @@ function grph_scale_colour() {
   }
 
   scale.domain = function(d) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return domain;
     } else {
       domain = d;
       ncolours = d.length;
       return this;
     }
-  }
+  };
 
   scale.range = function(r) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return range;
     } else {
       range = r;
       return this;
     }
-  }
+  };
 
   scale.ticks = function() {
     return domain;
-  }
+  };
 
   return scale;
 

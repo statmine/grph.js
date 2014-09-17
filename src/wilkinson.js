@@ -5,11 +5,11 @@
 // - Add a thousands separator (grp)
 format_numeric = function(label, unit, ndec, dec, grp) {
   if (isNaN(label)) return '';
-  if (unit == undefined) unit = '';
-  if (dec == undefined) dec = ',';
-  if (grp == undefined) grp = ' ';
+  if (unit === undefined) unit = '';
+  if (dec === undefined) dec = ',';
+  if (grp === undefined) grp = ' ';
   // round number
-  if (ndec != undefined) {
+  if (ndec !== undefined) {
     label = label.toFixed(ndec);
   } else {
     label = label.toString();
@@ -19,14 +19,14 @@ format_numeric = function(label, unit, ndec, dec, grp) {
   x     = label.split('.');
   x1    = x[0];
   x2    = x.length > 1 ? dec + x[1] : '';
-  if (grp != '') {
+  if (grp !== '') {
     var rgx = /(\d+)(\d{3})/;
     while (rgx.test(x1)) {
       x1 = x1.replace(rgx, '$1' + grp + '$2');
     }
   }
   return(x1 + x2 + unit);
-}
+};
 
 
 
@@ -64,7 +64,7 @@ function wilkinson_ii(dmin, dmax, m, calc_label_width, axis_width, mmin, mmax, Q
     // calculate granularity; one of the terms in score
     var granularity = 1 - Math.abs(k-m)/m;
     // initialise end result
-    var best = undefined;
+    var best;
     // loop through all possible label positions with given k
     for(var i = 0; i < Q.length; i++) {
       // calculate label positions
@@ -76,12 +76,12 @@ function wilkinson_ii(dmin, dmax, m, calc_label_width, axis_width, mmin, mmax, Q
       // if label positions cover range
       if (tmin <= min && tmax >= max) {
         // calculate roundness and coverage part of score
-        var roundness = 1 - (i - (tmin <= 0 && tmax >= 0)) / Q.length
-        var coverage  = (max-min)/(tmax-tmin)
+        var roundness = 1 - (i - (tmin <= 0 && tmax >= 0)) / Q.length;
+        var coverage  = (max-min)/(tmax-tmin);
         // if coverage high enough
         if (coverage > mincoverage && !overlap(tmin, tmax, tdelta, calc_label_width, axis_width, ndec)) {
           // calculate score
-          var tnice = granularity + roundness + coverage
+          var tnice = granularity + roundness + coverage;
           // if highest score
           if ((best === undefined) || (tnice > best.score)) {
             best = {
@@ -123,12 +123,12 @@ function wilkinson_ii(dmin, dmax, m, calc_label_width, axis_width, mmin, mmax, Q
       'ndec'  : 0
     };
   // calculate number of decimal places
-  var x = String(best['lstep']).split('.');
-  best['ndec'] = x.length > 1 ? x[1].length : 0;
+  var x = String(best.lstep).split('.');
+  best.ndec = x.length > 1 ? x[1].length : 0;
   // loop though all possible numbers of labels
   for (var k = mmin; k <= mmax; k++) { 
     // calculate best label position for current number of labels
-    var result = wilkinson_step(dmin, dmax, k, m, Q, mincoverage)
+    var result = wilkinson_step(dmin, dmax, k, m, Q, mincoverage);
     // check if current result has higher score
     if ((result !== undefined) && ((best === undefined) || (result.score > best.score))) {
       best = result;
@@ -139,7 +139,7 @@ function wilkinson_ii(dmin, dmax, m, calc_label_width, axis_width, mmin, mmax, Q
   for (var l = best.lmin; (l - best.lmax) <= 1E-10; l += best.lstep) {
     labels.push(l);
   }
-  best['labels'] = labels;
+  best.labels = labels;
   return(best);
 }
 

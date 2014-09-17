@@ -18,22 +18,22 @@ function grph_scale_chloropleth() {
   }
 
   scale.domain = function(d) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return domain;
     } else {
       domain = d;
       return this;
     }
-  }
+  };
 
   scale.range = function(r) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return baseclass;
     } else {
       baseclass = r;
       return this;
     }
-  }
+  };
 
   scale.ticks = function() {
     var step = (domain[1] - domain[0])/ncolours;
@@ -44,7 +44,7 @@ function grph_scale_chloropleth() {
       t += step;
     }
     return ticks;
-  }
+  };
 
   return scale;
 }

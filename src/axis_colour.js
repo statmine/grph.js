@@ -11,39 +11,39 @@ function grph_axis_colour() {
   }
 
   axis.width = function(width) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return width_;
     } else {
       width_ = width;
       return this;
     }
-  }
+  };
 
   axis.height = function(height) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return height_;
     } else {
       height_ = height;
       return this;
     }
-  }
+  };
 
   axis.accept = function(variable, schema) {
     var vschema = variable_schema(variable, schema);
     return vschema.type == 'categorical';
-  }
+  };
 
   axis.variable = function(v) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return variable_;
     } else {
       variable_ = v;
       return this;
     }
-  }
+  };
 
   axis.domain = function(data, schema) {
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
       return scale.domain();
     } else {
       if (variable_ === undefined) return this;
@@ -53,11 +53,11 @@ function grph_axis_colour() {
       scale.domain(categories);
       return this;
     }
-  }
+  };
 
   axis.ticks = function() {
     return scale.ticks();
-  }
+  };
 
   axis.scale = function(v) {
     if (typeof v == 'object') { 
@@ -65,7 +65,7 @@ function grph_axis_colour() {
     } else {
       return scale(v);
     }
-  }
+  };
 
   return axis;
 }
