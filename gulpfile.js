@@ -5,12 +5,16 @@ var concat = require('gulp-concat');
 var jshint = require("gulp-jshint");
 var sourcemaps = require("gulp-sourcemaps");
 
-gulp.task('default', ['js', 'js-min']);
+gulp.task('default', ['check', 'js', 'js-min']);
 
-gulp.task('js', function () {
-  return gulp.src("src/*.js")
+gulp.task("check", function () {
+  return gulp.src(["src/*.js", "!src/begin.js", "!src/end.js"])
     .pipe(jshint())
     .pipe(jshint.reporter("default"))
+});
+
+gulp.task('js', function () {
+  return gulp.src(["src/begin.js", "src/!(end)*.js", "src/end.js"])
     .pipe(sourcemaps.init())
       .pipe(concat("grph.js"))
     .pipe(sourcemaps.write())
@@ -18,8 +22,8 @@ gulp.task('js', function () {
 });
 
 gulp.task('js-min', function () {
-  return gulp.src("src/*.js")
-    .pipe(uglify())
+  return gulp.src(["src/begin.js", "src/!(end)*.js", "src/end.js"])
     .pipe(concat("grph.min.js"))
+    .pipe(uglify())
     .pipe(gulp.dest("js"));
 });

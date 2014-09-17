@@ -124,7 +124,7 @@
       var svg = d3.select("#graph").insert("svg")
         .attr("width", w).attr("height", h);
 
-      var graph = grph_graph_line();
+      var graph = grph.line();
       graph.width(w).height(h).schema(schema).assign({
         'x' : 'year',
         'y' : 'value',
