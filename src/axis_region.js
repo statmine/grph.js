@@ -127,11 +127,6 @@ function grph_axis_region() {
   return axis;
 }
 
-
-
-
-
-
 // A function expecting two functions. The second function is called when the 
 // first function returns true. When the first function does not return true
 // we wait for 100ms and try again. 
@@ -142,4 +137,7 @@ var wait_for = function(m, f) {
     setTimeout(function() { wait_for(m, f);}, 100);
   }
 };
+
+if (grph.axis === undefined) grph.axis = {};
+grph.axis.linear = grph_axis_linear();
 

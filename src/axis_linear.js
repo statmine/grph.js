@@ -151,3 +151,7 @@ function grph_axis_linear(horizontal) {
 
   return axis;
 }
+
+if (grph.axis === undefined) grph.axis = {};
+grph.axis.linear = grph_axis_linear();
+

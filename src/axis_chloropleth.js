@@ -64,3 +64,7 @@ function grph_axis_chloropleth() {
 
   return axis;
 }
+
+if (grph.axis === undefined) grph.axis = {};
+grph.axis.chloropleth = grph_axis_chloropleth();
+

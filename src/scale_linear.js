@@ -93,4 +93,6 @@ function grph_scale_linear() {
   return scale;
 }
 
+if (grph.scale === undefined) grph.scale = {};
+grph.scale.linear = grph_scale_linear();
 

@@ -69,3 +69,7 @@ function grph_axis_colour() {
 
   return axis;
 }
+
+if (grph.axis === undefined) grph.axis = {};
+grph.axis.colour = grph_axis_colour();
+

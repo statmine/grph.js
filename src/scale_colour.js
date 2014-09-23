@@ -39,6 +39,8 @@ function grph_scale_colour() {
   };
 
   return scale;
-
- 
 }
+
+if (grph.scale === undefined) grph.scale = {};
+grph.scale.colour = grph_scale_colour();
+

@@ -48,3 +48,7 @@ function grph_scale_chloropleth() {
 
   return scale;
 }
+
+if (grph.scale === undefined) grph.scale = {};
+grph.scale.chloropleth = grph_scale_chloropleth();
+
