@@ -10,12 +10,6 @@ function grph_graph_line() {
   };
   axes.x.required = true;
   axes.y.required = true;
-  var settings = {
-    'padding' : [2, 2, 2, 2],
-    'label_padding' : 4,
-    'sep' : 8,
-    'point_size' : 4
-  };
   var dispatch = d3.dispatch("mouseover", "mouseout", "pointover", "pointout");
 
   var dummy_ = d3.select("body").append("svg")
@@ -43,7 +37,7 @@ function grph_graph_line() {
     // get labels and determine their height
     var vschemax = variable_schema(axes.x.variable(), schema);
     var xlabel = vschemax.title;
-    var label_height = label_size_.height(xlabel) + settings.label_padding;
+    var label_height = label_size_.height(xlabel) + settings('label_padding');
     var vschemay = variable_schema(axes.y.variable(), schema);
     var ylabel = vschemay.title;
     // set the width, height end domain of the x- and y-axes. We need some 
@@ -52,27 +46,27 @@ function grph_graph_line() {
     // on the width of the x-axis, etc. 
     var w, h;
     for (var i = 0; i < 2; ++i) {
-      w = graph.width() - settings.padding[1] - settings.padding[3] - 
+      w = graph.width() - settings('padding')[1] - settings('padding')[3] - 
         axes.y.width() - label_height;
-      w = (w - (ncol-1)*settings.sep) / ncol;
+      w = (w - (ncol-1)*settings('sep')) / ncol;
       axes.x.width(w).domain(graph.data(), graph.schema());
-      h = graph.height() - settings.padding[0] - settings.padding[2] - 
+      h = graph.height() - settings('padding')[0] - settings('padding')[2] - 
         axes.x.height() - label_height;
-      h = (h - (nrow-1)*settings.sep) / nrow;
+      h = (h - (nrow-1)*settings('sep')) / nrow;
       axes.y.height(h).domain(graph.data(), graph.schema());
     }
-    var l = axes.y.width() + settings.padding[1] + label_height;
-    var t  = settings.padding[2];
+    var l = axes.y.width() + settings('padding')[1] + label_height;
+    var t  = settings('padding')[2];
     // draw labels
-    var ycenter = t + 0.5*(graph.height() - settings.padding[0] - settings.padding[2] - 
+    var ycenter = t + 0.5*(graph.height() - settings('padding')[0] - settings('padding')[2] - 
         axes.x.height() - label_height);
-    var xcenter = l + 0.5*(graph.width() - settings.padding[1] - settings.padding[3] - 
+    var xcenter = l + 0.5*(graph.width() - settings('padding')[1] - settings('padding')[3] - 
         axes.y.width() - label_height);
     g.append("text")
-      .attr("x", settings.padding[1]).attr("y", ycenter)
+      .attr("x", settings('padding')[1]).attr("y", ycenter)
       .attr("text-anchor", "middle").text(ylabel)
-      .attr("transform", "rotate(90 " + settings.padding[1] + " " + ycenter + ")");
-    g.append("text").attr("x", xcenter).attr("y", graph.height()-settings.padding[0])
+      .attr("transform", "rotate(90 " + settings('padding')[1] + " " + ycenter + ")");
+    g.append("text").attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
 
 
@@ -81,7 +75,7 @@ function grph_graph_line() {
 
     for (i = 0; i < d.length; ++i) {
       var dj = d[i].values;
-      t  = settings.padding[2];
+      t  = settings('padding')[2];
       for (var j = 0; j < dj.length; ++j) {
         // draw x-axis
         if (j == (dj.length-1)) {
@@ -133,13 +127,13 @@ function grph_graph_line() {
           gr.selectAll("circle.circle" + k).data(dk[k].values).enter().append("circle")
             .attr("class", "circle" + k + " " + axes.colour.scale(dk[k].key))
             .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
-            .attr("r", settings.point_size);
+            .attr("r", settings('point_size'));
         }
 
         // next line
-        t += axes.y.height() + settings.sep;
+        t += axes.y.height() + settings('sep');
       }
-      l += axes.x.width() + settings.sep;
+      l += axes.x.width() + settings('sep');
     }
 
 

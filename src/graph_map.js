@@ -9,11 +9,6 @@ function grph_graph_map() {
   };
   axes.region.required = true;
   axes.colour.required = true;
-  var settings = {
-    'padding' : [2, 2, 2, 2],
-    'label_padding' : 4,
-    'sep' : 8,
-  };
   var dispatch = d3.dispatch("mouseover", "mouseout");
 
   var graph = grph_graph(axes, dispatch, function(g) {
@@ -32,19 +27,19 @@ function grph_graph_map() {
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
     // set the width, height end domain of the x- and y-axes
-    var w = (graph.width() - settings.padding[1] - settings.padding[3] - 
-      (ncol-1)*settings.sep)/ncol;
-    var h = (graph.height() - settings.padding[0] - settings.padding[2] - 
-      (nrow-1)*settings.sep)/nrow;
-    var l = settings.padding[1];
-    var t  = settings.padding[2];
+    var w = (graph.width() - settings("padding", "map")[1] - settings("padding", "map")[3] - 
+      (ncol-1)*settings("sep", "map"))/ncol;
+    var h = (graph.height() - settings("padding", "map")[0] - settings("padding", "map")[2] - 
+      (nrow-1)*settings("sep", "map"))/nrow;
+    var l = settings("padding", "map")[1];
+    var t  = settings("padding", "map")[2];
     axes.region.width(w).height(h);
     // draw graphs
     wait_for(axes.region.map_loaded, function() {
     var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
     for (var i = 0; i < d.length; ++i) {
       var dj = d[i].values;
-      var t  = settings.padding[2];
+      var t  = settings("padding", "map")[2];
       for (var j = 0; j < dj.length; ++j) {
         // draw box for graph
         var gr = svg.append("g").attr("class", "graph")
@@ -55,9 +50,9 @@ function grph_graph_map() {
         gr.selectAll("path").data(dj[j].values).enter().append("path")
           .attr("d", axes.region.scale).attr("class", axes.colour.scale);
         // next line
-        t += h + settings.sep;
+        t += h + settings("sep", "map");
       }
-      l += w + settings.sep;
+      l += w + settings("sep", "map");
     }
     // add events to the lines
     g.selectAll("path").on("mouseover", function(d, i) {
