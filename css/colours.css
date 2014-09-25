@@ -150,27 +150,27 @@
 
 circle.colour1 {
   fill: #E97100;
-  fill-opacity: 0;
+  fill-opacity: 0.5;
 }
 
 circle.colour2 {
   fill: #00C2AC;
-  fill-opacity: 0;
+  fill-opacity: 0.5;
 }
 
 circle.colour3 {
   fill: #FF00DB;
-  fill-opacity: 0;
+  fill-opacity: 0.5;
 }
 
 circle.colour4 {
   fill: #37AA00;
-  fill-opacity: 0;
+  fill-opacity: 0.5;
 }
 
 circle.colour5 {
   fill: #008BFF;
-  fill-opacity: 0;
+  fill-opacity: 0.5;
 }
 
 circle.colour6 {
