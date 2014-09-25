@@ -5,6 +5,7 @@ function grph_graph_bubble() {
     'x' : grph_axis_linear(true),
     'y' : grph_axis_linear(false),
     'object' : grph_axis_colour(),
+    'size'   : grph_axis_size(),
     'colour' : grph_axis_colour(),
     'column' : grph_axis_split(),
     'row' : grph_axis_split()
@@ -34,6 +35,8 @@ function grph_graph_bubble() {
     }
     // setup axes
     axes.colour.domain(graph.data(), graph.schema());
+    //axes.object.domain(graph.data(), graph.schema()); TODO
+    axes.size.domain(graph.data(), graph.schema());
     axes.column.domain(graph.data(), graph.schema());
     axes.row.domain(graph.data(), graph.schema());
     // determine number of rows and columns
@@ -124,7 +127,7 @@ function grph_graph_bubble() {
           gr.selectAll("circle.bubble" + k).data(dk[k].values).enter().append("circle")
             .attr("class", "bubble bubble" + k + " " + axes.colour.scale(dk[k].key))
             .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
-            .attr("r", settings('point_size'));
+            .attr("r", axes.size.scale);
         }
         // next line
         t += axes.y.height() + settings('sep');

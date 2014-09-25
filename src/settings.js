@@ -6,7 +6,9 @@ var settings = function() {
       'padding' : [2, 2, 2, 2],
       'label_padding' : 4,
       'sep' : 8,
-      'point_size' : 4
+      'point_size' : 4,
+      'max_bubble' : 20,
+      'default_bubble' : 5
     }
   };
 
