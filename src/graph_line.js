@@ -10,7 +10,8 @@ function grph_graph_line() {
   };
   axes.x.required = true;
   axes.y.required = true;
-  var dispatch = d3.dispatch("mouseover", "mouseout", "pointover", "pointout");
+  var dispatch = d3.dispatch("mouseover", "mouseout", "pointover", "pointout",
+    "click");
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "lineargraph dummy")
@@ -143,12 +144,15 @@ function grph_graph_line() {
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseover.call(g, variable, value, d);
       if (!d.key) dispatch.pointover.call(g, variable, value, d);
-    });
-    g.selectAll(".colour").on("mouseout", function(d, i) {
+    }).on("mouseout", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseout.call(g, variable, value, d);
       if (!d.key) dispatch.pointout.call(g, variable, value, d);
+    }).on("click", function(d, i) {
+      var variable = axes.colour.variable();
+      var value = variable ? (d.key || d[variable]) : undefined;
+      dispatch.click.call(g, variable, value, d);
     });
 
   });

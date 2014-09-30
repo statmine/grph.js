@@ -13,7 +13,7 @@ function grph_graph_bubble() {
   axes.x.required = true;
   axes.y.required = true;
   axes.object.required = true;
-  var dispatch = d3.dispatch("mouseover", "mouseout");
+  var dispatch = d3.dispatch("mouseover", "mouseout", "click");
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "bubblegraph dummy")
@@ -141,11 +141,15 @@ function grph_graph_bubble() {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseover.call(g, variable, value, d);
-    });
-    g.selectAll(".colour").on("mouseout", function(d, i) {
+    }).on("mouseout", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseout.call(g, variable, value, d);
+    }).on("click", function(d, i) {
+      console.log("click");
+      var variable = axes.colour.variable();
+      var value = variable ? (d.key || d[variable]) : undefined;
+      dispatch.click.call(g, variable, value, d);
     });
 
   });
