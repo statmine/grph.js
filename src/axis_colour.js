@@ -30,7 +30,7 @@ function grph_axis_colour() {
 
   axis.accept = function(variable, schema) {
     var vschema = variable_schema(variable, schema);
-    return vschema.type == 'categorical';
+    return vschema.type == "categorical" || vschema.type == "period";
   };
 
   axis.variable = function(v) {
@@ -48,8 +48,17 @@ function grph_axis_colour() {
     } else {
       if (variable_ === undefined) return this;
       var vschema = variable_schema(variable_, schema);
-      var categories = vschema.categories.map(function(d) {
-        return d.name; });
+      var categories = [];
+      if (vschema.type == "categorical") {
+        categories = vschema.categories.map(function(d) { return d.name; });
+      } else {
+        var vals = data.map(function(d) { return d[variable];}).sort();
+        var prev;
+        for (var i = 0; i < vals.length; ++i) {
+          if (vals[i] != prev) categories.push(vals[i]);
+          prev = vals[i];
+        }
+      }
       scale.domain(categories);
       return this;
     }

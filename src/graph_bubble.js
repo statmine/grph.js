@@ -35,7 +35,7 @@ function grph_graph_bubble() {
     }
     // setup axes
     axes.colour.domain(graph.data(), graph.schema());
-    //axes.object.domain(graph.data(), graph.schema()); TODO
+    axes.object.domain(graph.data(), graph.schema()); 
     axes.size.domain(graph.data(), graph.schema());
     axes.column.domain(graph.data(), graph.schema());
     axes.row.domain(graph.data(), graph.schema());
@@ -155,7 +155,6 @@ function grph_graph_bubble() {
 
 
   // Local event handlers
-  // Highlighting of selected line
   dispatch.on("mouseover", function(variable, value, d) {
     if (variable) {
       var classes = axes.colour.scale("" + value);
@@ -174,13 +173,6 @@ function grph_graph_bubble() {
     this.selectAll(".hline").style("visibility", "hidden");
     this.selectAll(".vline").style("visibility", "hidden");
   });
-  // Show crosshairs when hovering over a point
-  /*dispatch.on("pointover", function(variable, value, d) {
-  });
-  dispatch.on("pointout", function(variable, value, d) {
-    this.selectAll(".hline").style("visibility", "hidden");
-    this.selectAll(".vline").style("visibility", "hidden");
-  });*/
 
   return graph;
 }
