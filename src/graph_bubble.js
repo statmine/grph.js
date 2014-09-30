@@ -146,7 +146,6 @@ function grph_graph_bubble() {
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseout.call(g, variable, value, d);
     }).on("click", function(d, i) {
-      console.log("click");
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.click.call(g, variable, value, d);
