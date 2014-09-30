@@ -42,7 +42,7 @@ function grph_graph_map() {
       var t  = settings("padding", "map")[2];
       for (var j = 0; j < dj.length; ++j) {
         // draw box for graph
-        var gr = svg.append("g").attr("class", "graph")
+        var gr = g.append("g").attr("class", "graph")
           .attr("transform", "translate(" + l + "," + t + ")");
         gr.append("rect").attr("class", "background")
           .attr("width", w).attr("height", h);
