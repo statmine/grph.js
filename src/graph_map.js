@@ -9,7 +9,7 @@ function grph_graph_map() {
   };
   axes.region.required = true;
   axes.colour.required = true;
-  var dispatch = d3.dispatch("mouseover", "mouseout", "click");
+  var dispatch = d3.dispatch("ready", "mouseover", "mouseout", "click");
 
   var graph = grph_graph(axes, dispatch, function(g) {
     function nest_column(d) {
@@ -65,6 +65,8 @@ function grph_graph_map() {
       var region = d[axes.region.variable()];
       dispatch.click.call(g, axes.region.variable(), region, d);
     });
+    // finished drawing call ready event
+    dispatch.ready.call(g);
 
     });
   });
@@ -80,6 +82,22 @@ function grph_graph_map() {
   dispatch.on("mouseout.graph", function(variable, value, d) {
     this.selectAll("path").classed({"colourhigh": false, "colourlow": false});
   });
+  
+  // tooltip
+  if (d3.tip !== undefined) {
+    var tip = d3.tip().attr('class', 'd3-tip').html(function(variable, value, d) { 
+      return "<b>" + value + "</b>";
+    });
+    dispatch.on("ready.tip", function() {
+      this.call(tip);
+    });
+    dispatch.on("mouseover.tip", function(variable, value, d) {
+      tip.show(variable, value, d);
+    });
+    dispatch.on("mouseout.tip", function(variable, value, d) {
+      tip.hide(variable, value, d);
+    });
+  }
 
 
 
