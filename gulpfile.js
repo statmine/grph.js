@@ -27,3 +27,8 @@ gulp.task('js-min', function () {
     .pipe(uglify())
     .pipe(gulp.dest("js"));
 });
+
+gulp.task("watch", function() {
+  gulp.watch(["src/*.js"], ["default"]);
+});
+
