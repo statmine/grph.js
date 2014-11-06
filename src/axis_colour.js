@@ -4,8 +4,6 @@ function grph_axis_colour() {
   var scale = grph_scale_colour();
   var variable_;
   var width_, height_;
-  var settings_ = {
-  };
 
   function axis(g) {
   }

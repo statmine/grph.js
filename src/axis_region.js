@@ -7,9 +7,6 @@ function grph_axis_region() {
   var map_;
   var index_ = {};
 
-  var settings_ = {
-  };
-
   function axis(g) {
   }
 

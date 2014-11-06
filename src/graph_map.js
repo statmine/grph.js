@@ -37,38 +37,37 @@ function grph_graph_map() {
     axes.region.width(w).height(h);
     // draw graphs
     wait_for(axes.region.map_loaded, function() {
-    var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
-    for (var i = 0; i < d.length; ++i) {
-      var dj = d[i].values;
-      var t  = settings("padding", "map")[2];
-      for (var j = 0; j < dj.length; ++j) {
-        // draw box for graph
-        var gr = g.append("g").attr("class", "graph")
-          .attr("transform", "translate(" + l + "," + t + ")");
-        gr.append("rect").attr("class", "background")
-          .attr("width", w).attr("height", h);
-        // draw map
-        gr.selectAll("path").data(dj[j].values).enter().append("path")
-          .attr("d", axes.region.scale).attr("class", axes.colour.scale);
-        // next line
-        t += h + settings("sep", "map");
+      var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
+      for (var i = 0; i < d.length; ++i) {
+        var dj = d[i].values;
+        var t  = settings("padding", "map")[2];
+        for (var j = 0; j < dj.length; ++j) {
+          // draw box for graph
+          var gr = g.append("g").attr("class", "graph")
+            .attr("transform", "translate(" + l + "," + t + ")");
+          gr.append("rect").attr("class", "background")
+            .attr("width", w).attr("height", h);
+          // draw map
+          gr.selectAll("path").data(dj[j].values).enter().append("path")
+            .attr("d", axes.region.scale).attr("class", axes.colour.scale);
+          // next line
+          t += h + settings("sep", "map");
+        }
+        l += w + settings("sep", "map");
       }
-      l += w + settings("sep", "map");
-    }
-    // add events to the lines
-    g.selectAll("path").on("mouseover", function(d, i) {
-      var region = d[axes.region.variable()];
-      dispatch.mouseover.call(g, axes.region.variable(), region, d);
-    }).on("mouseout", function(d, i) {
-      var region = d[axes.region.variable()];
-      dispatch.mouseout.call(g, axes.region.variable(), region, d);
-    }).on("click", function(d, i) {
-      var region = d[axes.region.variable()];
-      dispatch.click.call(g, axes.region.variable(), region, d);
-    });
-    // finished drawing call ready event
-    dispatch.ready.call(g);
-
+      // add events to the lines
+      g.selectAll("path").on("mouseover", function(d, i) {
+        var region = d[axes.region.variable()];
+        dispatch.mouseover.call(g, axes.region.variable(), region, d);
+      }).on("mouseout", function(d, i) {
+        var region = d[axes.region.variable()];
+        dispatch.mouseout.call(g, axes.region.variable(), region, d);
+      }).on("click", function(d, i) {
+        var region = d[axes.region.variable()];
+        dispatch.click.call(g, axes.region.variable(), region, d);
+      });
+      // finished drawing call ready event
+      dispatch.ready.call(g);
     });
   });
 
@@ -99,9 +98,6 @@ function grph_graph_map() {
       tip.hide(variable, value, d);
     });
   }
-
-
-
 
   return graph;
 }
