@@ -20,13 +20,24 @@ function grph_graph_bubble() {
     .style("visibility", "invisible");
   var label_size_ = grph_label_size(dummy_);
 
-  var graph = grph_graph(axes, dispatch, function(g) {
+  function graph_panel(g, data) {
     function nest_object(d) {
       return axes.object.variable() ? d[axes.object.variable()] : 1;
     }
     function nest_colour(d) {
       return axes.colour.variable() ? d[axes.colour.variable()] : 1;
     }
+    var d = d3.nest().key(nest_colour).entries(data);
+    // draw bubbles 
+    for (var i = 0; i < d.length; ++i) {
+      g.selectAll("circle.bubble" + i).data(d[i].values).enter().append("circle")
+        .attr("class", "bubble bubble" + i + " " + axes.colour.scale(d[i].key))
+        .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
+        .attr("r", axes.size.scale);
+    }
+  }
+
+  var graph = grph_graph(axes, dispatch, function(g) {
     function nest_column(d) {
       return axes.column.variable() ? d[axes.column.variable()] : 1;
     }
@@ -35,11 +46,6 @@ function grph_graph_bubble() {
     }
     // setup axes
     for (var axis in axes) axes[axis].domain(graph.data(), graph.schema());
-    /*axes.colour.domain(graph.data(), graph.schema());
-    axes.object.domain(graph.data(), graph.schema()); 
-    axes.size.domain(graph.data(), graph.schema());
-    axes.column.domain(graph.data(), graph.schema());
-    axes.row.domain(graph.data(), graph.schema());*/
     // determine number of rows and columns
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
@@ -80,23 +86,20 @@ function grph_graph_bubble() {
     g.append("text").attr("class", "label label-x")
       .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
-
-
-
-    var d = d3.nest().key(nest_column).key(nest_row).key(nest_colour).entries(graph.data());
-
+    // create each of the panels
+    var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
     for (i = 0; i < d.length; ++i) {
       var dj = d[i].values;
       t  = settings('padding')[2];
       for (var j = 0; j < dj.length; ++j) {
         // draw x-axis
         if (j == (dj.length-1)) {
-          g.append("g").attr("class", "xaxis")
+          g.append("g").attr("class", "axis axis-x")
             .attr("transform", "translate(" + l + "," + (t + h) + ")").call(axes.x);
         }
         // draw y-axis
         if (i === 0) {
-          g.append("g").attr("class", "xaxis")
+          g.append("g").attr("class", "axis axis-y")
             .attr("transform", "translate(" + (l - axes.y.width()) + "," + t + ")")
             .call(axes.y);
         }
@@ -124,16 +127,9 @@ function grph_graph_bubble() {
         gcrossh.append("line").classed("vline", true).attr("x1", 0)
           .attr("y1", 0).attr("x2", 0).attr("y2", axes.y.height())
           .style("visibility", "hidden");
-        // draw bubbles 
-        var dk = dj[j].values;
-        for (k = 0; k < dk.length; ++k) {
-          var cls = "circle" + k;
-          gr.selectAll("circle.bubble" + k).data(dk[k].values).enter().append("circle")
-            .attr("class", "bubble bubble" + k + " " + axes.colour.scale(dk[k].key))
-            .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
-            .attr("r", axes.size.scale);
-        }
-        // next line
+        // draw panel
+        graph_panel(gr, dj[j].values);
+        // next panel
         t += axes.y.height() + settings('sep');
       }
       l += axes.x.width() + settings('sep');

@@ -86,7 +86,7 @@ function grph_graph_line() {
       .attr("x", settings('padding')[1]).attr("y", ycenter)
       .attr("text-anchor", "middle").text(ylabel)
       .attr("transform", "rotate(90 " + settings('padding')[1] + " " + ycenter + ")");
-    g.append("text").attr("class", "label label-y")
+    g.append("text").attr("class", "label label-x")
       .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
     // create each of the panels
@@ -130,7 +130,7 @@ function grph_graph_line() {
         gcrossh.append("line").classed("vline", true).attr("x1", 0)
           .attr("y1", 0).attr("x2", 0).attr("y2", axes.y.height())
           .style("visibility", "hidden");
-        // draw lines
+        // draw panel
         graph_panel(gr, dj[j].values);
         // next panel
         t += axes.y.height() + settings('sep');
