@@ -65,16 +65,19 @@ function grph_graph_bubble() {
     }
     var l = axes.y.width() + settings('padding')[1] + label_height;
     var t  = settings('padding')[2];
+    // create group containing complete graph
+    g = g.append("g").attr("class", "graph graph-bubble");
     // draw labels
     var ycenter = t + 0.5*(graph.height() - settings('padding')[0] - settings('padding')[2] - 
         axes.x.height() - label_height);
     var xcenter = l + 0.5*(graph.width() - settings('padding')[1] - settings('padding')[3] - 
         axes.y.width() - label_height);
-    g.append("text")
+    g.append("text").attr("class", "label label-y")
       .attr("x", settings('padding')[1]).attr("y", ycenter)
       .attr("text-anchor", "middle").text(ylabel)
       .attr("transform", "rotate(90 " + settings('padding')[1] + " " + ycenter + ")");
-    g.append("text").attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
+    g.append("text").attr("class", "label label-x")
+      .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
 
 
@@ -97,7 +100,7 @@ function grph_graph_bubble() {
             .call(axes.y);
         }
         // draw box for graph
-        var gr = g.append("g").attr("class", "graph")
+        var gr = g.append("g").attr("class", "panel")
           .attr("transform", "translate(" + l + "," + t + ")");
         gr.append("rect").attr("class", "background")
           .attr("width", w).attr("height", h);

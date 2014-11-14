@@ -35,6 +35,8 @@ function grph_graph_map() {
     var l = settings("padding", "map")[1];
     var t  = settings("padding", "map")[2];
     axes.region.width(w).height(h);
+    // create group containing complete graph
+    g = g.append("g").attr("class", "graph graph-map");
     // draw graphs
     wait_for(axes.region.map_loaded, function() {
       var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
@@ -43,7 +45,7 @@ function grph_graph_map() {
         var t  = settings("padding", "map")[2];
         for (var j = 0; j < dj.length; ++j) {
           // draw box for graph
-          var gr = g.append("g").attr("class", "graph")
+          var gr = g.append("g").attr("class", "map")
             .attr("transform", "translate(" + l + "," + t + ")");
           gr.append("rect").attr("class", "background")
             .attr("width", w).attr("height", h);

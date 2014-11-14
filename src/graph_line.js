@@ -58,19 +58,20 @@ function grph_graph_line() {
     }
     var l = axes.y.width() + settings('padding')[1] + label_height;
     var t  = settings('padding')[2];
+    // create group containing complete graph
+    g = g.append("g").attr("class", "graph graph-line");
     // draw labels
     var ycenter = t + 0.5*(graph.height() - settings('padding')[0] - settings('padding')[2] - 
         axes.x.height() - label_height);
     var xcenter = l + 0.5*(graph.width() - settings('padding')[1] - settings('padding')[3] - 
         axes.y.width() - label_height);
-    g.append("text")
+    g.append("text").attr("class", "label label-y")
       .attr("x", settings('padding')[1]).attr("y", ycenter)
       .attr("text-anchor", "middle").text(ylabel)
       .attr("transform", "rotate(90 " + settings('padding')[1] + " " + ycenter + ")");
-    g.append("text").attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
+    g.append("text").attr("class", "label label-y")
+      .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
-
-
 
     var d = d3.nest().key(nest_column).key(nest_row).key(nest_colour).entries(graph.data());
 
@@ -80,17 +81,17 @@ function grph_graph_line() {
       for (var j = 0; j < dj.length; ++j) {
         // draw x-axis
         if (j == (dj.length-1)) {
-          g.append("g").attr("class", "xaxis")
+          g.append("g").attr("class", "axis axis-x")
             .attr("transform", "translate(" + l + "," + (t + h) + ")").call(axes.x);
         }
         // draw y-axis
         if (i === 0) {
-          g.append("g").attr("class", "xaxis")
+          g.append("g").attr("class", "axis axis-y")
             .attr("transform", "translate(" + (l - axes.y.width()) + "," + t + ")")
             .call(axes.y);
         }
         // draw box for graph
-        var gr = g.append("g").attr("class", "graph")
+        var gr = g.append("g").attr("class", "panel")
           .attr("transform", "translate(" + l + "," + t + ")");
         gr.append("rect").attr("class", "background")
           .attr("width", w).attr("height", h);
