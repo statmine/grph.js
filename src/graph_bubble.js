@@ -34,11 +34,12 @@ function grph_graph_bubble() {
       return axes.row.variable() ? d[axes.row.variable()] : 1;
     }
     // setup axes
-    axes.colour.domain(graph.data(), graph.schema());
+    for (var axis in axes) axes[axis].domain(graph.data(), graph.schema());
+    /*axes.colour.domain(graph.data(), graph.schema());
     axes.object.domain(graph.data(), graph.schema()); 
     axes.size.domain(graph.data(), graph.schema());
     axes.column.domain(graph.data(), graph.schema());
-    axes.row.domain(graph.data(), graph.schema());
+    axes.row.domain(graph.data(), graph.schema());*/
     // determine number of rows and columns
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;

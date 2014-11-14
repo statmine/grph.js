@@ -18,10 +18,29 @@ function grph_graph_line() {
     .style("visibility", "invisible");
   var label_size_ = grph_label_size(dummy_);
 
-  var graph = grph_graph(axes, dispatch, function(g) {
+  function graph_panel(g, data) {
     function nest_colour(d) {
       return axes.colour.variable() ? d[axes.colour.variable()] : 1;
     }
+    var d = d3.nest().key(nest_colour).entries(data);
+    // draw lines 
+    var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale);
+    for (var i = 0; i < d.length; ++i) {
+      g.append("path").attr("d", line(d[i].values))
+        .attr("class", axes.colour.scale(d[i].key))
+        .datum(d[i]);
+    }
+    // draw points 
+    for (i = 0; i < d.length; ++i) {
+      var cls = "circle" + i;
+      g.selectAll("circle.circle" + i).data(d[i].values).enter().append("circle")
+        .attr("class", "circle" + i + " " + axes.colour.scale(d[i].key))
+        .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
+        .attr("r", settings('point_size'));
+    }
+  }
+
+  var graph = grph_graph(axes, dispatch, function(g) {
     function nest_column(d) {
       return axes.column.variable() ? d[axes.column.variable()] : 1;
     }
@@ -29,9 +48,7 @@ function grph_graph_line() {
       return axes.row.variable() ? d[axes.row.variable()] : 1;
     }
     // setup axes
-    axes.colour.domain(graph.data(), graph.schema());
-    axes.column.domain(graph.data(), graph.schema());
-    axes.row.domain(graph.data(), graph.schema());
+    for (var axis in axes) axes[axis].domain(graph.data(), graph.schema());
     // determine number of rows and columns
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
@@ -72,9 +89,8 @@ function grph_graph_line() {
     g.append("text").attr("class", "label label-y")
       .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
-
-    var d = d3.nest().key(nest_column).key(nest_row).key(nest_colour).entries(graph.data());
-
+    // create each of the panels
+    var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
     for (i = 0; i < d.length; ++i) {
       var dj = d[i].values;
       t  = settings('padding')[2];
@@ -114,25 +130,9 @@ function grph_graph_line() {
         gcrossh.append("line").classed("vline", true).attr("x1", 0)
           .attr("y1", 0).attr("x2", 0).attr("y2", axes.y.height())
           .style("visibility", "hidden");
-        // draw lines 
-        var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale);
-        var dk = dj[j].values;
-        for (var k = 0; k < dk.length; ++k) {
-          gr.append("path").attr("d", line(dk[k].values))
-            .attr("class", axes.colour.scale(dk[k].key))
-            .datum(dk[k]);
-        }
-        // draw points 
-        dk = dj[j].values;
-        for (k = 0; k < dk.length; ++k) {
-          var cls = "circle" + k;
-          gr.selectAll("circle.circle" + k).data(dk[k].values).enter().append("circle")
-            .attr("class", "circle" + k + " " + axes.colour.scale(dk[k].key))
-            .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
-            .attr("r", settings('point_size'));
-        }
-
-        // next line
+        // draw lines
+        graph_panel(gr, dj[j].values);
+        // next panel
         t += axes.y.height() + settings('sep');
       }
       l += axes.x.width() + settings('sep');
