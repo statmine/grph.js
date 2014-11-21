@@ -8,7 +8,8 @@ var settings = function() {
       'sep' : 8,
       'point_size' : 4,
       'max_bubble' : 20,
-      'default_bubble' : 5
+      'default_bubble' : 5,
+      'bar_padding' : 0.4
     }
   };
 

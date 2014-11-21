@@ -35,13 +35,13 @@ function grph_graph_bubble() {
         .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
         .attr("r", axes.size.scale);
     }
-  }
+  });
 
 
   // when finished drawing graph; add event handlers 
   dispatch.on("ready", function() {
     // add hover events to the lines and points
-    var self = this
+    var self = this;
     this.selectAll(".colour").on("mouseover", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
