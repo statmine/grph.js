@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="../js/d3.v3.min.js"></script>
+    <script src="../js/grph.js"></script>
+
+    <link href="../css/base.css" rel="stylesheet" type="text/css" />
+    <link href="../css/colours.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <div id="graph">
+    </div>
+
+    <script type="text/javascript">
+      var data = [
+        {'year' : 2008, 'gender' : 1, 'age' : '0-50', 'value' : 100, 'value2' : 100, 'value3' : -110},
+        {'year' : 2009, 'gender' : 1, 'age' : '0-50', 'value' : 110, 'value2' : 120, 'value3' : 130}, 
+        {'year' : 2010, 'gender' : 1, 'age' : '0-50', 'value' : 123, 'value2' : 150, 'value3' : -140}, 
+        {'year' : 2011, 'gender' : 1, 'age' : '0-50', 'value' : 129, 'value2' : 120, 'value3' : 110}, 
+        {'year' : 2012, 'gender' : 1, 'age' : '0-50', 'value' : 135, 'value2' : 200, 'value3' : -190}, 
+        {'year' : 2013, 'gender' : 1, 'age' : '0-50', 'value' : 148, 'value2' : 130, 'value3' : 140},
+        {'year' : 2008, 'gender' : 2, 'age' : '0-50', 'value' : 120, 'value2' : 130, 'value3' : -120},
+        {'year' : 2009, 'gender' : 2, 'age' : '0-50', 'value' : 115, 'value2' : 110, 'value3' : -100}, 
+        {'year' : 2010, 'gender' : 2, 'age' : '0-50', 'value' : 133, 'value2' : 150, 'value3' : -300}, 
+        {'year' : 2011, 'gender' : 2, 'age' : '0-50', 'value' : 125, 'value2' : 140, 'value3' : 130}, 
+        {'year' : 2012, 'gender' : 2, 'age' : '0-50', 'value' : 145, 'value2' : 160, 'value3' : -180}, 
+        {'year' : 2013, 'gender' : 2, 'age' : '0-50', 'value' : 147, 'value2' : 150, 'value3' : -160},
+        {'year' : 2008, 'gender' : 1, 'age' : '50+', 'value' : 126, 'value2' : 130, 'value3' : -130},
+        {'year' : 2009, 'gender' : 1, 'age' : '50+', 'value' : 136, 'value2' : 120, 'value3' : 120}, 
+        {'year' : 2010, 'gender' : 1, 'age' : '50+', 'value' : 123, 'value2' : 150, 'value3' : -160}, 
+        {'year' : 2011, 'gender' : 1, 'age' : '50+', 'value' : 146, 'value2' : 160, 'value3' : 130}, 
+        {'year' : 2012, 'gender' : 1, 'age' : '50+', 'value' : 135, 'value2' : 140, 'value3' : 120}, 
+        {'year' : 2013, 'gender' : 1, 'age' : '50+', 'value' : 138, 'value2' : 140, 'value3' : 150},
+        {'year' : 2008, 'gender' : 2, 'age' : '50+', 'value' : 127, 'value2' : 150, 'value3' : -170},
+        {'year' : 2009, 'gender' : 2, 'age' : '50+', 'value' : 115, 'value2' : 100, 'value3' : 110}, 
+        {'year' : 2010, 'gender' : 2, 'age' : '50+', 'value' : 136, 'value2' : 160, 'value3' : -180}, 
+        {'year' : 2011, 'gender' : 2, 'age' : '50+', 'value' : 133, 'value2' : 140, 'value3' : 160}, 
+        {'year' : 2012, 'gender' : 2, 'age' : '50+', 'value' : 124, 'value2' : 120, 'value3' : -120}, 
+        {'year' : 2013, 'gender' : 2, 'age' : '50+', 'value' : 146, 'value2' : 160, 'value3' : 190}
+      ];
+      var schema = {
+        'fields' : [
+          { 
+            'name' : 'year', 'title' : 'Year', 
+            'description' : '', 'type' : 'number'
+          }, { 
+            'name' : 'gender', 'title' : 'Gender',
+            'description' : '', 'type' : 'categorical',
+            'categories' : [
+              {'name': "1", 'title' : 'Male', 'description' : ''},
+              {'name': "2", 'title' : 'Female', 'description' : ''}
+            ]
+          }, { 
+            'name' : 'age', 'title' : 'Age',
+            'description' : '', 'type' : 'categorical',
+            'categories' : [
+              {'name': "0-50", 'title' : '0-49 years', 'description' : ''},
+              {'name': "50+", 'title' : '50 years and older', 'description' : ''}
+            ]
+          }, { 
+            'name' : 'value', 'title' : 'Value', 
+            'description' : '', 'type' : 'number'
+          }, { 
+            'name' : 'value2', 'title' : 'Value2', 
+            'description' : '', 'type' : 'number'
+          }, { 
+            'name' : 'value3', 'title' : 'Value3', 
+            'description' : '', 'type' : 'number'
+          }
+        ]
+      };
+
+
+      var w = 700, h = 400;
+
+      var svg = d3.select("#graph").insert("svg")
+        .attr("width", w).attr("height", h);
+
+      var graph = grph.bar();
+      graph.width(w).height(h).schema(schema).assign({
+        'x' : 'value3',
+        'y' : 'year',
+        'row' : 'gender',
+        'column' : 'age'
+      }).data(data);
+
+      graph(svg);
+
+      //var axis = grph.axis.categorical.height(300).variable("year")
+        //.domain(data, schema);
+      //axis(svg);
+
+
+    </script>
+
+
+  </body>
+
+</html>
+
+
+

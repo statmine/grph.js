@@ -9,7 +9,9 @@ var settings = function() {
       'point_size' : 4,
       'max_bubble' : 20,
       'default_bubble' : 5,
-      'bar_padding' : 0.4
+      'bar_padding' : 0.4,
+      'tick_length' : 5,
+      'tick_padding' : 2
     }
   };
 
