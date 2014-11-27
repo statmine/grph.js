@@ -45,5 +45,44 @@ function grph_graph_bar() {
       .attr("y1", 0).attr("y2", axes.y.height());
   });
 
+  // when finished drawing graph; add event handlers 
+  dispatch.on("ready", function() {
+    // add hover events to the lines and points
+    var self = this;
+    this.selectAll(".colour").on("mouseover", function(d, i) {
+      var variable = axes.colour.variable();
+      var value = variable ? (d.key || d[variable]) : undefined;
+      dispatch.mouseover.call(self, variable, value, d);
+    }).on("mouseout", function(d, i) {
+      var variable = axes.colour.variable();
+      var value = variable ? (d.key || d[variable]) : undefined;
+      dispatch.mouseout.call(self, variable, value, d);
+    }).on("click", function(d, i) {
+      var variable = axes.colour.variable();
+      var value = variable ? (d.key || d[variable]) : undefined;
+      dispatch.click.call(self, variable, value, d);
+    });
+  });
+
+  // Local event handlers
+  dispatch.on("mouseover", function(variable, value, d) {
+    if (variable) {
+      var classes = axes.colour.scale("" + value);
+      var regexp = /\bcolour([0-9]+)\b/;
+      var colour = regexp.exec(classes)[0];
+      this.selectAll(".colour").classed("colourlow", true);
+      this.selectAll("." + colour).classed({"colourhigh": true, "colourlow": false});
+    }
+    this.selectAll(".hline").attr("y1", axes.y.scale(d)).attr("y2", axes.y.scale(d))
+      .style("visibility", "visible");
+    this.selectAll(".vline").attr("x1", axes.x.scale(d)).attr("x2", axes.x.scale(d))
+      .style("visibility", "visible");
+  });
+  dispatch.on("mouseout", function(variable, value, d) {
+    this.selectAll(".colour").classed({"colourhigh": false, "colourlow": false});
+    this.selectAll(".hline").style("visibility", "hidden");
+    this.selectAll(".vline").style("visibility", "hidden");
+  });
+
   return graph;
 }
