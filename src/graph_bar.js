@@ -4,6 +4,7 @@ function grph_graph_bar() {
   var axes = {
     'x' : grph_axis_linear(true),
     'y' : grph_axis_categorical(),
+    'colour': grph_axis_colour(),
     'column' : grph_axis_split(),
     'row' : grph_axis_split()
   };

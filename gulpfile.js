@@ -5,6 +5,11 @@ var concat = require('gulp-concat');
 var jshint = require("gulp-jshint");
 var sourcemaps = require("gulp-sourcemaps");
 
+function log_error(error) {
+  console.log(error.toString());
+  this.emit('end');
+}
+
 gulp.task('default', ['check', 'js', 'js-min']);
 
 gulp.task("check", function () {
@@ -25,6 +30,7 @@ gulp.task('js-min', function () {
   return gulp.src(["src/begin.js", "src/!(end)*.js", "src/end.js"])
     .pipe(concat("grph.min.js"))
     .pipe(uglify())
+    .on("error", log_error)
     .pipe(gulp.dest("js"));
 });
 
