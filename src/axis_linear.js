@@ -5,6 +5,7 @@ function grph_axis_linear(horizontal) {
   var horizontal_ = horizontal;
   var variable_;
   var width_, height_;
+  var origin_;
   var settings_ = {
     "tick_length" : 5,
     "tick_padding" : 2,
@@ -132,7 +133,22 @@ function grph_axis_linear(horizontal) {
       return scale_.domain();
     } else {
       var range = d3.extent(data, function(d) { return d[variable_];});
+      var vschema = variable_schema(variable_, schema);
+      if (vschema.origin) origin_ = vschema.origin;
+      if (origin_ !== undefined) {
+        if (range[0] > origin_) range[0] = origin_;
+        if (range[1] < origin_) range[1] = origin_;
+      }
       scale_.domain(range).nice();
+      return this;
+    }
+  };
+
+  axis.origin = function(origin) {
+    if (arguments.length === 0) {
+      return origin_;
+    } else {
+      origin_ = origin;
       return this;
     }
   };

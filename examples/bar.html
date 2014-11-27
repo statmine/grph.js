@@ -65,7 +65,8 @@
             'description' : '', 'type' : 'number'
           }, { 
             'name' : 'value2', 'title' : 'Value2', 
-            'description' : '', 'type' : 'number'
+            'description' : '', 'type' : 'number',
+            'origin': 100
           }, { 
             'name' : 'value3', 'title' : 'Value3', 
             'description' : '', 'type' : 'number'
@@ -81,9 +82,9 @@
 
       var graph = grph.bar();
       graph.width(w).height(h).schema(schema).assign({
-        'x' : 'value3',
+        'x' : 'value2',
         'y' : 'year',
-        'row' : 'gender',
+        'colour' : 'gender',
         'column' : 'age'
       }).data(data);
 

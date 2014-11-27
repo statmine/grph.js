@@ -148,6 +148,159 @@
   stroke-opacity: 1;
 }
 
+
+rect.colour1 {
+  fill: #E97100;
+  fill-opacity: 0.5;
+}
+
+rect.colour2 {
+  fill: #00C2AC;
+  fill-opacity: 0.5;
+}
+
+rect.colour3 {
+  fill: #FF00DB;
+  fill-opacity: 0.5;
+}
+
+rect.colour4 {
+  fill: #37AA00;
+  fill-opacity: 0.5;
+}
+
+rect.colour5 {
+  fill: #008BFF;
+  fill-opacity: 0.5;
+}
+
+rect.colour6 {
+  fill: #AF9300;
+  fill-opacity: 0;
+}
+
+rect.colour7 {
+  fill: #00B8FF;
+  fill-opacity: 0;
+}
+
+rect.colour8 {
+  fill: #FF376E;
+  fill-opacity: 0;
+}
+
+rect.colour9 {
+  fill: #00BA17;
+  fill-opacity: 0;
+}
+
+rect.colour10 {
+  fill: #EA1BFF;
+  fill-opacity: 0;
+}
+
+rect.colour1.colourlow {
+  fill: #E97100;
+  fill-opacity: 0;
+}
+
+rect.colour2.colourlow {
+  fill: #00C2AC;
+  fill-opacity: 0;
+}
+
+rect.colour3.colourlow {
+  fill: #FF00DB;
+  fill-opacity: 0;
+}
+
+rect.colour4.colourlow {
+  fill: #37AA00;
+  fill-opacity: 0;
+}
+
+rect.colour5.colourlow {
+  fill: #008BFF;
+  fill-opacity: 0;
+}
+
+rect.colour6.colourlow {
+  fill: #AF9300;
+  fill-opacity: 0;
+}
+
+rect.colour7.colourlow {
+  fill: #00B8FF;
+  fill-opacity: 0;
+}
+
+rect.colour8.colourlow {
+  fill: #FF376E;
+  fill-opacity: 0;
+}
+
+rect.colour9.colourlow {
+  fill: #00BA17;
+  fill-opacity: 0;
+}
+
+rect.colour10.colourlow {
+  fill: #EA1BFF;
+  fill-opacity: 0;
+}
+
+rect.colour1.colourhigh {
+  fill: #E97100;
+  fill-opacity: 0;
+}
+
+rect.colour2.colourhigh {
+  fill: #00C2AC;
+  fill-opacity: 0;
+}
+
+rect.colour3.colourhigh {
+  fill: #FF00DB;
+  fill-opacity: 0;
+}
+
+rect.colour4.colourhigh {
+  fill: #37AA00;
+  fill-opacity: 0;
+}
+
+rect.colour5.colourhigh {
+  fill: #008BFF;
+  fill-opacity: 0;
+}
+
+rect.colour6.colourhigh {
+  fill: #AF9300;
+  fill-opacity: 0;
+}
+
+rect.colour7.colourhigh {
+  fill: #00B8FF;
+  fill-opacity: 0;
+}
+
+rect.colour8.colourhigh {
+  fill: #FF376E;
+  fill-opacity: 0;
+}
+
+rect.colour9.colourhigh {
+  fill: #00BA17;
+  fill-opacity: 0;
+}
+
+rect.colour10.colourhigh {
+  fill: #EA1BFF;
+  fill-opacity: 0;
+}
+
+
+
 circle.colour1 {
   fill: #E97100;
   fill-opacity: 0.5;
