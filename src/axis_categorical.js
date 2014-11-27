@@ -2,8 +2,16 @@
 function grph_axis_categorical() {
 
   var scale = grph_scale_categorical();
-  var width = 50;
+  var width;
   var variable, height;
+
+  var dummy_ = d3.select("body").append("svg")
+    .attr("class", "axis_categorical dummy")
+    .style("visibility", "invisible");
+  var label_size_ = grph_label_size(dummy_);
+  //if (horizontal_) scale_.label_size(label_size_.width);
+  //else scale_.label_size(label_size_.height);
+  
 
   function axis(g) {
     var ticks = axis.ticks();
@@ -28,6 +36,15 @@ function grph_axis_categorical() {
 
   axis.width = function(w) {
     if (arguments.length === 0) {
+      if (width === undefined) {// TODO reset width_ when labels change
+        var ticks = scale.ticks();
+        var max_width = 0;
+        for (var i = 0; i < ticks.length; ++i) {
+          var lw = label_size_.width(ticks[i]);
+          if (lw > max_width) max_width = lw;
+        }
+        width = max_width + settings("tick_length") + settings("tick_padding");  
+      }
       return width;
     } else {
       width = w;
