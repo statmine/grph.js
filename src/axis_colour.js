@@ -50,10 +50,10 @@ function grph_axis_colour() {
       if (vschema.type == "categorical") {
         categories = vschema.categories.map(function(d) { return d.name; });
       } else {
-        var vals = data.map(function(d) { return d[variable];}).sort();
+        var vals = data.map(function(d) { return d[variable_];}).sort();
         var prev;
         for (var i = 0; i < vals.length; ++i) {
-          if (vals[i] != prev) categories.push(vals[i]);
+          if (vals[i] != prev) categories.push("" + vals[i]);
           prev = vals[i];
         }
       }
