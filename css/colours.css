@@ -128,54 +128,63 @@ path.colour.colourlow {
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro2 {
   fill: #e0f3db;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro3 {
   fill: #ccebc5;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro4 {
   fill: #a8ddb5;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro5 {
   fill: #7bccc4;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro6 {
   fill: #4eb3d3;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro7 {
   fill: #2b8cbe;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro8 {
   fill: #0868ac;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro9 {
   fill: #084081;
   fill-opacity: 1;
   stroke: #000000;
   stroke-opacity: 1;
+  stroke-width: 0.5pt;
 }
 .chloro.colourhigh {
   stroke-width: 2px;
