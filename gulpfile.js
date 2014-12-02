@@ -4,13 +4,14 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var jshint = require("gulp-jshint");
 var sourcemaps = require("gulp-sourcemaps");
+var less = require("gulp-less");
 
 function log_error(error) {
   console.log(error.toString());
   this.emit('end');
 }
 
-gulp.task('default', ['check', 'js', 'js-min']);
+gulp.task("default", ["check", "js", "js-min", "css"]);
 
 gulp.task("check", function () {
   return gulp.src(["src/*.js", "!src/begin.js", "!src/end.js"])
@@ -32,6 +33,12 @@ gulp.task('js-min', function () {
     .pipe(uglify())
     .on("error", log_error)
     .pipe(gulp.dest("js"));
+});
+
+gulp.task('css', function () {
+  gulp.src('./less/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('css'));
 });
 
 gulp.task("watch", function() {
