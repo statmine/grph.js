@@ -1,3 +1,6 @@
+@background: #404040;
+@subtle: #505050;
+@foreground: #BBBBBB;
 
 @colour1: #52A146;
 @colour2: #DA6DB6;
@@ -20,6 +23,53 @@
 @chloro8: rgb(8,104,172);
 @chloro9: rgb(8,64,129);
 
+
+// ============================================================================
+// base
+// ============================================================================
+
+svg {
+  background : @background;
+}
+svg * {
+  font-family : Corbel, Helvetica, sans-serif;
+  font-size : 12px;
+}
+text {
+  fill: @foreground;
+}
+path, line {
+  stroke : @subtle;
+  stroke-width : 1pt;
+  fill : none;
+}
+line.grid, line.tick {
+  stroke-width : 0.5pt;
+}
+line.gridx {
+  stroke-width : 0px;
+}
+.graph-bubble line.gridx, .graph-bar line.gridx {
+  stroke-width: 0.5pt;
+}
+.graph-bar line.gridy {
+  stroke-width: 0pt;
+}
+rect.background {
+  fill : none;
+  stroke : 0pt;
+}
+.crosshairs line {
+  stroke : @foreground;
+  stroke-width : 0.5pt;
+  stroke-dasharray : 5,5;
+}
+.graph-bar .axisline {
+  stroke-width : 0pt;
+}
+.graph-bar .crosshairs line.hline {
+  stroke-width : 0pt;
+}
 
 
 // ============================================================================

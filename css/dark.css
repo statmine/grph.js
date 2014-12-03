@@ -1,3 +1,48 @@
+svg {
+  background: #404040;
+}
+svg * {
+  font-family: Corbel, Helvetica, sans-serif;
+  font-size: 12px;
+}
+text {
+  fill: #bbbbbb;
+}
+path,
+line {
+  stroke: #505050;
+  stroke-width: 1pt;
+  fill: none;
+}
+line.grid,
+line.tick {
+  stroke-width: 0.5pt;
+}
+line.gridx {
+  stroke-width: 0px;
+}
+.graph-bubble line.gridx,
+.graph-bar line.gridx {
+  stroke-width: 0.5pt;
+}
+.graph-bar line.gridy {
+  stroke-width: 0pt;
+}
+rect.background {
+  fill: none;
+  stroke: 0pt;
+}
+.crosshairs line {
+  stroke: #bbbbbb;
+  stroke-width: 0.5pt;
+  stroke-dasharray: 5,5;
+}
+.graph-bar .axisline {
+  stroke-width: 0pt;
+}
+.graph-bar .crosshairs line.hline {
+  stroke-width: 0pt;
+}
 rect.colour1,
 circle.colour1 {
   fill: #52a146;
