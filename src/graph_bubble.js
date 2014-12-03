@@ -15,11 +15,6 @@ function grph_graph_bubble() {
   axes.object.required = true;
   var dispatch = d3.dispatch("mouseover", "mouseout", "click", "ready");
 
-  var dummy_ = d3.select("body").append("svg")
-    .attr("class", "bubblegraph dummy")
-    .style("visibility", "invisible");
-  var label_size_ = grph_label_size(dummy_);
-
   var graph = grph_generic_graph(axes, dispatch, "bubble", function(g, data) {
     function nest_object(d) {
       return axes.object.variable() ? d[axes.object.variable()] : 1;

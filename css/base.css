@@ -2,6 +2,9 @@
 body {
   background : #404040;
 }
+svg {
+  background : #404040;
+}
 svg * {
   font-family : Corbel, Helvetica, sans-serif;
   font-size : 12px;

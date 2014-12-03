@@ -7,7 +7,8 @@ function grph_axis_categorical() {
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "axis_categorical dummy")
-    .style("visibility", "invisible");
+    .attr("width", 0).attr("height", 0)
+    .style("visibility", "hidden");
   var label_size_ = grph_label_size(dummy_);
   //if (horizontal_) scale_.label_size(label_size_.width);
   //else scale_.label_size(label_size_.height);

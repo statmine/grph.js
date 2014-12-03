@@ -3,7 +3,8 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "dummy graph graph-" + type)
-    .style("visibility", "invisible");
+    .attr("width", 0).attr("height", 0)
+    .style("visibility", "hidden");
   var label_size_ = grph_label_size(dummy_);
 
 
