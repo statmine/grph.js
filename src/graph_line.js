@@ -43,12 +43,12 @@ function grph_graph_line() {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseover.call(self, variable, value, d);
-      if (!d.key) dispatch.pointover.call(this, variable, value, d);
+      if (!d.key) dispatch.pointover.call(self, variable, value, d);
     }).on("mouseout", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseout.call(self, variable, value, d);
-      if (!d.key) dispatch.pointout.call(this, variable, value, d);
+      if (!d.key) dispatch.pointout.call(self, variable, value, d);
     }).on("click", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
@@ -80,6 +80,28 @@ function grph_graph_line() {
     this.selectAll(".hline").style("visibility", "hidden");
     this.selectAll(".vline").style("visibility", "hidden");
   });
+
+  // Tooltip
+  // when d3.tip is loaded
+  if (d3.tip !== undefined) {
+    var tip = d3.tip().direction("se").attr('class', 'tip tip-line').html(function(variable, value, d) { 
+      var schema = graph.schema();
+      var str = '';
+      for (var field in schema.fields) {
+        str += schema.fields[field].title + ': ' + d[schema.fields[field].name] + '</br>';
+      }
+      return str;
+    });
+    dispatch.on("ready.tip", function() {
+      this.call(tip);
+    });
+    dispatch.on("pointover.tip", function(variable, value, d) {
+      tip.show(variable, value, d);
+    });
+    dispatch.on("pointout.tip", function(variable, value, d) {
+      tip.hide(variable, value, d);
+    });
+  }
 
   return graph;
 }

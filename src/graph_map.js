@@ -87,8 +87,13 @@ function grph_graph_map() {
   
   // tooltip
   if (d3.tip !== undefined) {
-    var tip = d3.tip().attr('class', 'd3-tip').html(function(variable, value, d) { 
-      return "<b>" + value + "</b>";
+    var tip = d3.tip().direction("se").attr('class', 'tip tip-map').html(function(variable, value, d) { 
+      var schema = graph.schema();
+      var str = '';
+      for (var field in schema.fields) {
+        str += schema.fields[field].title + ': ' + d[schema.fields[field].name] + '</br>';
+      }
+      return str;
     });
     dispatch.on("ready.tip", function() {
       this.call(tip);

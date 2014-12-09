@@ -84,5 +84,27 @@ function grph_graph_bar() {
     this.selectAll(".vline").style("visibility", "hidden");
   });
 
+  // Tooltip
+  // when d3.tip is loaded
+  if (d3.tip !== undefined) {
+    var tip = d3.tip().direction("se").attr('class', 'tip tip-bar').html(function(variable, value, d) { 
+      var schema = graph.schema();
+      var str = '';
+      for (var field in schema.fields) {
+        str += schema.fields[field].title + ': ' + d[schema.fields[field].name] + '</br>';
+      }
+      return str;
+    });
+    dispatch.on("ready.tip", function() {
+      this.call(tip);
+    });
+    dispatch.on("mouseover.tip", function(variable, value, d) {
+      tip.show(variable, value, d);
+    });
+    dispatch.on("mouseout.tip", function(variable, value, d) {
+      tip.hide(variable, value, d);
+    });
+  }
+
   return graph;
 }
