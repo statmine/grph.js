@@ -31,6 +31,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
     // of the x-axis, which depends on the labels of the x-axis, which depends
     // on the width of the x-axis, etc. 
     var rowlabel_width = axes.row.variable() ? 3*label_height : 0;
+    var columnlabel_height = axes.column.variable() ? 3*label_height : 0;
     var w, h;
     for (var i = 0; i < 2; ++i) {
       w = graph.width() - settings('padding')[1] - settings('padding')[3] - 
@@ -38,12 +39,12 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
       w = (w - (ncol-1)*settings('sep')) / ncol;
       axes.x.width(w).domain(graph.data(), graph.schema());
       h = graph.height() - settings('padding')[0] - settings('padding')[2] - 
-        axes.x.height() - label_height;
+        axes.x.height() - label_height - columnlabel_height;
       h = (h - (nrow-1)*settings('sep')) / nrow;
       axes.y.height(h).domain(graph.data(), graph.schema());
     }
     var l = axes.y.width() + settings('padding')[1] + label_height;
-    var t  = settings('padding')[2];
+    var t  = settings('padding')[2] + columnlabel_height;
     // create group containing complete graph
     g = g.append("g").attr("class", "graph graph-" + type);
     // draw labels
@@ -67,11 +68,18 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
         .attr("text-anchor", "middle").text(rowlabel)
         .attr("transform", "rotate(90 " + xrow + " " + ycenter + ")");
     }
+    if (axes.column.variable()) {
+      var vschemacolumn = variable_schema(axes.column.variable(), schema);
+      var columnlabel = vschemacolumn.title;
+      g.append("text").attr("class", "label label-y")
+        .attr("x", xcenter).attr("y", settings("padding")[2]).attr("dy", "0.71em")
+        .attr("text-anchor", "middle").text(columnlabel);
+    }
     // create each of the panels
     var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
     for (i = 0; i < d.length; ++i) {
       var dj = d[i].values;
-      t  = settings('padding')[2];
+      t  = settings('padding')[2] + columnlabel_height;
       for (var j = 0; j < dj.length; ++j) {
         // draw x-axis
         if (j == (dj.length-1)) {
@@ -98,6 +106,20 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
               (label_height - settings("tick_padding")) + " " + h/2 + ")")
             .attr("text-anchor", "middle").attr("dy", "0.35em")
             .text(rowtick);
+        }
+        // draw column labels
+        if (j === 0 && axes.column.variable()) {
+          var columntick = axes.column.ticks()[i];
+          var coltickh = label_height + 2*settings("tick_padding");
+          var gcolumn = g.append("g").attr("class", "axis axis-column")
+            .attr("transform", "translate(" + l + "," + (t - coltickh) + ")");
+          gcolumn.append("rect").attr("class", "background")
+            .attr("width", w)
+            .attr("height", label_height + 2*settings("tick_padding"));
+          gcolumn.append("text").attr("class", "ticklabel")
+            .attr("x", w/2).attr("y", settings("tick_padding"))
+            .attr("text-anchor", "middle").attr("dy", "0.71em")
+            .text(columntick);
         }
         // draw box for graph
         var gr = g.append("g").attr("class", "panel")
