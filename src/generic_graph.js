@@ -30,10 +30,11 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
     // iterations for this, as the height of the y-axis depends of the height
     // of the x-axis, which depends on the labels of the x-axis, which depends
     // on the width of the x-axis, etc. 
+    var rowlabel_width = axes.row.variable() ? 3*label_height : 0;
     var w, h;
     for (var i = 0; i < 2; ++i) {
       w = graph.width() - settings('padding')[1] - settings('padding')[3] - 
-        axes.y.width() - label_height;
+        axes.y.width() - label_height - rowlabel_width;
       w = (w - (ncol-1)*settings('sep')) / ncol;
       axes.x.width(w).domain(graph.data(), graph.schema());
       h = graph.height() - settings('padding')[0] - settings('padding')[2] - 
@@ -57,6 +58,15 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
     g.append("text").attr("class", "label label-x")
       .attr("x", xcenter).attr("y", graph.height()-settings('padding')[0])
       .attr("text-anchor", "middle").text(xlabel);
+    if (axes.row.variable()) {
+      var xrow = graph.width() - settings('padding')[3] - label_height;
+      var vschemarow = variable_schema(axes.row.variable(), schema);
+      var rowlabel = vschemarow.title;
+      g.append("text").attr("class", "label label-y")
+        .attr("x", xrow).attr("y", ycenter)
+        .attr("text-anchor", "middle").text(rowlabel)
+        .attr("transform", "rotate(90 " + xrow + " " + ycenter + ")");
+    }
     // create each of the panels
     var d = d3.nest().key(nest_column).key(nest_row).entries(graph.data());
     for (i = 0; i < d.length; ++i) {
@@ -73,6 +83,21 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
           g.append("g").attr("class", "axis axis-y")
             .attr("transform", "translate(" + (l - axes.y.width()) + "," + t + ")")
             .call(axes.y);
+        }
+        // draw row labels
+        if (i == (d.length-1) && axes.row.variable()) {
+          var rowtick = axes.row.ticks()[i];
+          var grow = g.append("g").attr("class", "axis axis-row")
+            .attr("transform", "translate(" + (l + w) + "," + t + ")");
+          grow.append("rect").attr("class", "background")
+            .attr("width", label_height + 2*settings("tick_padding"))
+            .attr("height", h);
+          grow.append("text").attr("class", "ticklabel")
+            .attr("x", 0).attr("y", h/2)
+            .attr("transform", "rotate(90 " + 
+              (label_height - settings("tick_padding")) + " " + h/2 + ")")
+            .attr("text-anchor", "middle").attr("dy", "0.35em")
+            .text(rowtick);
         }
         // draw box for graph
         var gr = g.append("g").attr("class", "panel")
