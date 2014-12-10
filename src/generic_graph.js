@@ -94,7 +94,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
         }
         // draw row labels
         if (i == (d.length-1) && axes.row.variable()) {
-          var rowtick = axes.row.ticks()[i];
+          var rowtick = axes.row.ticks()[j];
           var grow = g.append("g").attr("class", "axis axis-row")
             .attr("transform", "translate(" + (l + w) + "," + t + ")");
           grow.append("rect").attr("class", "background")
