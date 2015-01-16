@@ -2,7 +2,8 @@
 function grph_graph_line() {
 
   var axes = {
-    'x' : grph_axis_linear(true),
+    //'x' : grph_axis_linear(true),
+    'x' : grph_axis_period(),
     'y' : grph_axis_linear(false),
     'colour' : grph_axis_colour(),
     'column' : grph_axis_split(),

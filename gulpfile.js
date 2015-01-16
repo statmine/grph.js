@@ -20,7 +20,7 @@ gulp.task("check", function () {
 });
 
 gulp.task('js', function () {
-  return gulp.src(["src/begin.js", "src/!(end)*.js", "src/end.js"])
+  return gulp.src(["libs/*.js", "src/begin.js", "src/!(end)*.js", "src/end.js"])
     .pipe(sourcemaps.init())
       .pipe(concat("grph.js"))
     .pipe(sourcemaps.write())
@@ -28,7 +28,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('js-min', function () {
-  return gulp.src(["src/begin.js", "src/!(end)*.js", "src/end.js"])
+  return gulp.src(["libs/*.js", "src/begin.js", "src/!(end)*.js", "src/end.js"])
     .pipe(concat("grph.min.js"))
     .pipe(uglify())
     .on("error", log_error)
