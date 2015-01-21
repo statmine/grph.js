@@ -22,9 +22,10 @@ function grph_axis_linear(horizontal) {
   
 
   function axis(g) {
+    var w = axis.width();
     var ticks = axis.ticks();
     g.append("rect").attr("class", "background")
-      .attr("width", axis.width()).attr("height", axis.height());
+      .attr("width", w).attr("height", axis.height());
     if (horizontal) {
       g.selectAll(".tick").data(ticks).enter()
         .append("line").attr("class", "tick")
@@ -37,7 +38,6 @@ function grph_axis_linear(horizontal) {
         .attr("text-anchor", "middle")
         .attr("dy", "0.71em");
     } else {
-      var w = axis.width();
       g.selectAll(".tick").data(ticks).enter()
         .append("line").attr("class", "tick")
         .attr("x1", w-settings_.tick_length).attr("x2", w)
@@ -66,15 +66,13 @@ function grph_axis_linear(horizontal) {
       // if vertical the width is usually defined by the graph: the space it
       // needs to draw the tickmarks and labels etc. 
       if (arguments.length === 0) {
-        if (width_ === undefined) {// TODO reset width_ when labels change
-          var ticks = scale_.ticks();
-          var w = 0;
-          for (var i = 0; i < ticks.length; ++i) {
-            var lw = label_size_.width(ticks[i]);
-            if (lw > w) w = lw;
-          }
-          width_ = w + settings_.tick_length + settings_.tick_padding + settings_.padding;  
+        var ticks = scale_.ticks();
+        var w = 0;
+        for (var i = 0; i < ticks.length; ++i) {
+          var lw = label_size_.width(ticks[i]);
+          if (lw > w) w = lw;
         }
+        width_ = w + settings_.tick_length + settings_.tick_padding + settings_.padding;  
         return width_;
       } else {
         width_ = width;
@@ -88,15 +86,13 @@ function grph_axis_linear(horizontal) {
       // if horizontal the width is usually defined by the graph: the space it
       // needs to draw the tickmarks and labels etc. 
       if (arguments.length === 0) {
-        if (height_ === undefined) { // TODO reset height_ when labels change
-          var ticks = scale_.ticks();
-          var h = 0;
-          for (var i = 0; i < ticks.length; ++i) {
-            var lh = label_size_.height(ticks[i]);
-            if (lh > h) h = lh;
-          }
-          height_ = h + settings_.tick_length + settings_.tick_padding + settings_.padding; 
+        var ticks = scale_.ticks();
+        var h = 0;
+        for (var i = 0; i < ticks.length; ++i) {
+          var lh = label_size_.height(ticks[i]);
+          if (lh > h) h = lh;
         }
+        height_ = h + settings_.tick_length + settings_.tick_padding + settings_.padding; 
         return height_;
       } else {
         height_ = height;
@@ -133,7 +129,7 @@ function grph_axis_linear(horizontal) {
     if (arguments.length === 0) {
       return scale_.domain();
     } else {
-      var range = d3.extent(data, function(d) { return d[variable_];});
+      var range = d3.extent(data, function(d) { return +d[variable_];});
       var vschema = variable_schema(variable_, schema);
       if (vschema.origin) origin_ = vschema.origin;
       if (origin_ !== undefined) {

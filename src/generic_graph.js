@@ -21,10 +21,10 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
     // get labels and determine their height
-    var vschemax = variable_schema(axes.x.variable(), schema);
+    var vschemax = variable_schema(axes.x.variable(), graph.schema());
     var xlabel = vschemax.title;
     var label_height = label_size_.height(xlabel) + settings('label_padding');
-    var vschemay = variable_schema(axes.y.variable(), schema);
+    var vschemay = variable_schema(axes.y.variable(), graph.schema());
     var ylabel = vschemay.title;
     // set the width, height end domain of the x- and y-axes. We need some 
     // iterations for this, as the height of the y-axis depends of the height
@@ -61,7 +61,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
       .attr("text-anchor", "middle").text(xlabel);
     if (axes.row.variable()) {
       var xrow = graph.width() - settings('padding')[3] - label_height;
-      var vschemarow = variable_schema(axes.row.variable(), schema);
+      var vschemarow = variable_schema(axes.row.variable(), graph.schema());
       var rowlabel = vschemarow.title;
       g.append("text").attr("class", "label label-y")
         .attr("x", xrow).attr("y", ycenter)
@@ -69,7 +69,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
         .attr("transform", "rotate(90 " + xrow + " " + ycenter + ")");
     }
     if (axes.column.variable()) {
-      var vschemacolumn = variable_schema(axes.column.variable(), schema);
+      var vschemacolumn = variable_schema(axes.column.variable(), graph.schema());
       var columnlabel = vschemacolumn.title;
       g.append("text").attr("class", "label label-y")
         .attr("x", xcenter).attr("y", settings("padding")[2]).attr("dy", "0.71em")

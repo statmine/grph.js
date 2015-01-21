@@ -11,3 +11,35 @@ function zero_pad(num, length) {
   return padding + n;
 }
 
+
+// Format a numeric value:
+// - Make sure it is rounded to the correct number of decimals (ndec)
+// - Use the correct decimal separator (dec)
+// - Add a thousands separator (grp)
+function format_number(label, unit, ndec, dec, grp) {
+  if (isNaN(label)) return '';
+  if (unit === undefined) unit = '';
+  if (dec === undefined) dec = '.';
+  if (grp === undefined) grp = '';
+  // round number
+  if (ndec !== undefined) {
+    label = label.toFixed(ndec);
+  } else {
+    label = label.toString();
+  }
+  // Following based on code from 
+  // http://www.mredkj.com/javascript/numberFormat.html
+  x     = label.split('.');
+  x1    = x[0];
+  x2    = x.length > 1 ? dec + x[1] : '';
+  if (grp !== '') {
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + grp + '$2');
+    }
+  }
+  return(x1 + x2 + unit);
+}
+
+
+

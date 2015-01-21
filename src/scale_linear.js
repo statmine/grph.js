@@ -6,6 +6,7 @@ function grph_scale_linear() {
   var padding_ = 5;
   var nticks_ = 10;
   var ticks_;
+  var ndec_;
   var inside_ = true;
 
   function scale(v) {
@@ -14,6 +15,8 @@ function grph_scale_linear() {
 
   scale.domain = function(d) {
     d = lscale.domain(d);
+    ndec_ = undefined;
+    ticks_ = undefined;
     if (arguments.length === 0) {
       return d;
     } else {
@@ -23,6 +26,8 @@ function grph_scale_linear() {
 
   scale.range = function(r) {
     r = lscale.range(r);
+    ndec_ = undefined;
+    ticks_ = undefined;
     if (arguments.length === 0) {
       return r;
     } else {
@@ -82,12 +87,13 @@ function grph_scale_linear() {
     domain = [w.lmin, w.lmax];
     lscale.domain([w.lmin, w.lmax]);
     ticks_ = w.labels;
+    ndec_ = w.ndec;
     return this;
   };
 
   scale.ticks = function() {
     if (ticks_ === undefined) return lscale.ticks(nticks_);
-    return ticks_;
+    return ticks_.map(function(t) { return format_number(t, "", ndec_);});
   };
 
   return scale;
