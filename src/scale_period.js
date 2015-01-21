@@ -6,11 +6,14 @@ function grph_scale_period() {
   var has_quarter_ = false;
 
   function scale(val) {
-    if (typeof(val) == "string") {
-      return time_scale(date_period(val).date);
+    if ((val instanceof Date) || moment.isMoment(val)) {
+      return time_scale(val);
     } else if (val && val.date && val.period) {
       time_scale(val.date);
-    } else return time_scale(val);
+    } else {
+      val = "" + val;
+      return time_scale(date_period(val).date);
+    }
   }
 
   scale.has_month = function() {
