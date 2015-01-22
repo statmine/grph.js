@@ -10,9 +10,6 @@ function grph_axis_categorical() {
     .attr("width", 0).attr("height", 0)
     .style("visibility", "hidden");
   var label_size_ = grph_label_size(dummy_);
-  //if (horizontal_) scale_.label_size(label_size_.width);
-  //else scale_.label_size(label_size_.height);
-  
 
   function axis(g) {
     var ticks = axis.ticks();
@@ -37,15 +34,13 @@ function grph_axis_categorical() {
 
   axis.width = function(w) {
     if (arguments.length === 0) {
-      if (width === undefined) {// TODO reset width_ when labels change
-        var ticks = scale.ticks();
-        var max_width = 0;
-        for (var i = 0; i < ticks.length; ++i) {
-          var lw = label_size_.width(ticks[i]);
-          if (lw > max_width) max_width = lw;
-        }
-        width = max_width + settings("tick_length") + settings("tick_padding");  
+      var ticks = scale.ticks();
+      var max_width = 0;
+      for (var i = 0; i < ticks.length; ++i) {
+        var lw = label_size_.width(ticks[i]);
+        if (lw > max_width) max_width = lw;
       }
+      width = max_width + settings("tick_length") + settings("tick_padding");  
       return width;
     } else {
       width = w;
