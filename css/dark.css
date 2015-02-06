@@ -32,6 +32,9 @@ rect.background {
   fill: none;
   stroke: 0pt;
 }
+.panel rect.background {
+  fill: #404040;
+}
 .crosshairs line {
   stroke: #bbbbbb;
   stroke-width: 0.5pt;

@@ -10,7 +10,7 @@ text {
 }
 path,
 line {
-  stroke: #bbbbbb;
+  stroke: #ffffff;
   stroke-width: 1pt;
   fill: none;
 }
@@ -31,6 +31,9 @@ line.gridx {
 rect.background {
   fill: none;
   stroke: 0pt;
+}
+.panel rect.background {
+  fill: #e8e8e8;
 }
 .crosshairs line {
   stroke: #000000;

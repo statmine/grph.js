@@ -1,6 +1,7 @@
 @background: #FFFFFF;
-@subtle: #BBBBBB;
+@subtle: #FFFFFF;
 @foreground: #000000;
+@panelbackground: #E8E8E8;
 
 @colour1: #89902F;
 @colour2: #9577A8;
@@ -58,6 +59,9 @@ line.gridx {
 rect.background {
   fill : none;
   stroke : 0pt;
+}
+.panel rect.background {
+  fill : @panelbackground;
 }
 .crosshairs line {
   stroke : @foreground;
