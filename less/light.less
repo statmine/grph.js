@@ -1,0 +1,211 @@
+@background: #FFFFFF;
+@subtle: #BBBBBB;
+@foreground: #000000;
+
+@colour1: #89902F;
+@colour2: #9577A8;
+@colour3: #C76750;
+@colour4: #3D8F80;
+@colour5: #539D57;
+@colour6: #C06583;
+@colour7: #5687AA;
+@colour8: #A97930;
+@colour9: #5A743A;
+
+@chloro_stroke: #FFFFFF;
+@chloro1: rgb(247,252,240);
+@chloro2: rgb(224,243,219);
+@chloro3: rgb(204,235,197);
+@chloro4: rgb(168,221,181);
+@chloro5: rgb(123,204,196);
+@chloro6: rgb(78,179,211);
+@chloro7: rgb(43,140,190);
+@chloro8: rgb(8,104,172);
+@chloro9: rgb(8,64,129);
+
+
+// ============================================================================
+// base
+// ============================================================================
+
+svg {
+  background : @background;
+}
+svg * {
+  font-family : Corbel, Helvetica, sans-serif;
+  font-size : 12px;
+}
+text {
+  fill: @foreground;
+}
+path, line {
+  stroke : @subtle;
+  stroke-width : 1pt;
+  fill : none;
+}
+line.grid, line.tick {
+  stroke-width : 0.5pt;
+}
+line.gridx {
+  stroke-width : 0px;
+}
+.graph-bubble line.gridx, .graph-bar line.gridx {
+  stroke-width: 0.5pt;
+}
+.graph-bar line.gridy {
+  stroke-width: 0pt;
+}
+rect.background {
+  fill : none;
+  stroke : 0pt;
+}
+.crosshairs line {
+  stroke : @foreground;
+  stroke-width : 0.5pt;
+  stroke-dasharray : 5,5;
+}
+.graph-bar .axisline {
+  stroke-width : 0pt;
+}
+.graph-bar .crosshairs line.hline {
+  stroke-width : 0pt;
+}
+
+// ============================================================================
+// tool tips
+// ============================================================================
+div.tip {
+  padding: 5px;
+  font-family: Corbel, Helvetica, sans-serif;
+  font-size: 12px;
+  color: @foreground;
+  background: fade(darken(@background, 50%), 50%);
+}
+
+// ============================================================================
+// rect and circle elements in graphs
+// ============================================================================
+
+.filled(@colour) {
+  fill: @colour;
+  fill-opacity: 0.8;
+  stroke: @colour;
+  stroke-opacity: 1;
+}
+
+rect.colour1, circle.colour1 {
+  .filled(@colour1)
+}
+rect.colour2, circle.colour2 {
+  .filled(@colour2)
+}
+rect.colour3, circle.colour3 {
+  .filled(@colour3)
+}
+rect.colour4, circle.colour4 {
+  .filled(@colour4)
+}
+rect.colour5, circle.colour5 {
+  .filled(@colour5)
+}
+rect.colour6, circle.colour6 {
+  .filled(@colour6)
+}
+rect.colour7, circle.colour7 {
+  .filled(@colour7)
+}
+rect.colour8, circle.colour8 {
+  .filled(@colour8)
+}
+rect.colour9, circle.colour9 {
+  .filled(@colour9)
+}
+rect.colour.colourlow, circle.colour.colourlow {
+  fill-opacity: 0.0;
+}
+
+// ============================================================================
+// line and path in graphs
+// ============================================================================
+
+.outline(@colour) {
+  stroke: @colour;
+  stroke-opacity: 1;
+  fill: none;
+}
+
+line.colour1, path.colour1 {
+  .outline(@colour1)
+}
+line.colour2, path.colour2 {
+  .outline(@colour2)
+}
+line.colour3, path.colour3 {
+  .outline(@colour3)
+}
+line.colour4, path.colour4 {
+  .outline(@colour4)
+}
+line.colour5, path.colour5 {
+  .outline(@colour5)
+}
+line.colour6, path.colour6 {
+  .outline(@colour6)
+}
+line.colour7, path.colour7 {
+  .outline(@colour7)
+}
+line.colour8, path.colour8 {
+  .outline(@colour8)
+}
+line.colour9, path.colour9 {
+  .outline(@colour9)
+}
+line.colour.colourlow, path.colour.colourlow {
+  stroke-opacity: 0.5;
+}
+
+// ============================================================================
+// maps
+// ============================================================================
+
+
+.chloro(@colour) {
+  fill: @colour;
+  fill-opacity: 1;
+  stroke: @chloro_stroke;
+  stroke-opacity: 1;
+  stroke-width : 0.5pt;
+}
+
+.chloro1 {
+  .chloro(@chloro1);
+}
+.chloro2 {
+  .chloro(@chloro2);
+}
+.chloro3 {
+  .chloro(@chloro3);
+}
+.chloro4 {
+  .chloro(@chloro4);
+}
+.chloro5 {
+  .chloro(@chloro5);
+}
+.chloro6 {
+  .chloro(@chloro6);
+}
+.chloro7 {
+  .chloro(@chloro7);
+}
+.chloro8 {
+  .chloro(@chloro8);
+}
+.chloro9 {
+  .chloro(@chloro9);
+}
+.chloro.colourhigh {
+  stroke-width: 2px;
+} 
+
