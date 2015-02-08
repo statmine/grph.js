@@ -19,9 +19,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
     for (var axis in axes) axes[axis].domain(graph.data(), graph.schema());
     // determine number of rows and columns
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
-    var format_col = variable_value_formatter(axes.column.variable(), graph.schema());
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
-    var format_row = variable_value_formatter(axes.row.variable(), graph.schema());
     // get labels and determine their height
     var vschemax = variable_schema(axes.x.variable(), graph.schema());
     var xlabel = vschemax.title;
@@ -107,7 +105,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
             .attr("transform", "rotate(90 " + 
               (label_height - settings("tick_padding")) + " " + h/2 + ")")
             .attr("text-anchor", "middle").attr("dy", "0.35em")
-            .text(format_row(rowtick));
+            .text(rowtick);
         }
         // draw column labels
         if (j === 0 && axes.column.variable()) {
@@ -121,7 +119,7 @@ function grph_generic_graph(axes, dispatch, type, graph_panel) {
           gcolumn.append("text").attr("class", "ticklabel")
             .attr("x", w/2).attr("y", settings("tick_padding"))
             .attr("text-anchor", "middle").attr("dy", "0.71em")
-            .text(format_col(columntick));
+            .text(columntick);
         }
         // draw box for graph
         var gr = g.append("g").attr("class", "panel")

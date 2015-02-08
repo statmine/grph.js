@@ -4,6 +4,7 @@ function grph_axis_split() {
   var variable_;
   var width_, height_;
   var domain_;
+  var ticks_;
   var settings_ = {
   };
 
@@ -60,12 +61,14 @@ function grph_axis_split() {
         }
       }
       domain_ = categories;
+      var format = variable_value_formatter(variable_, schema);
+      ticks_ = domain_.map(format);
       return this;
     }
   };
 
   axis.ticks = function() {
-    return domain_;
+    return ticks_;
   };
 
   axis.scale = function(v) {

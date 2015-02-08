@@ -31,6 +31,7 @@ function grph_graph_map() {
     axes.colour.domain(graph.data(), graph.schema());
     axes.column.domain(graph.data(), graph.schema());
     axes.row.domain(graph.data(), graph.schema());
+
     // determine number of rows and columns
     var ncol = axes.column.variable() ? axes.column.ticks().length : 1;
     var nrow = axes.row.variable() ? axes.row.ticks().length : 1;
