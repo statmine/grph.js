@@ -86,9 +86,11 @@ function grph_graph_line() {
   if (d3.tip !== undefined) {
     var tip = d3.tip().direction("se").attr('class', 'tip tip-line').html(function(variable, value, d) { 
       var schema = graph.schema();
+      var format = value_formatter(schema);
       var str = '';
-      for (var field in schema.fields) {
-        str += schema.fields[field].title + ': ' + d[schema.fields[field].name] + '</br>';
+      for (var i in schema.fields) {
+        var field = schema.fields[i];
+        str += field.title + ': ' + format(d,field.name) + '</br>';
       }
       return str;
     });
