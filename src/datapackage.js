@@ -18,6 +18,9 @@ function variable_value_formatter(variable, schema){
 				case "categorical":{
 					return categorical_formatter(field);
 				}
+				case "string":{
+					return categorical_formatter(field);
+				}				
 				default:{
 					return default_formatter(field);
 				}
@@ -37,6 +40,10 @@ function value_formatter(schema){
 				break;
 			}
 			case "categorical":{
+				formatters[field.name] = categorical_formatter(field);
+				break;
+			}
+			case "string":{
 				formatters[field.name] = categorical_formatter(field);
 				break;
 			}
