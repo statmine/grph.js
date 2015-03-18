@@ -60,7 +60,7 @@ function grph_scale_period() {
 
       if (scale.has_quarter()) {
         for (var q = 0; q < 4; q++) {
-          tick = date_period(year + "-" + zeroPad(q*3+1, 2) + "-01/P3M");
+          tick = date_period(year + "-" + zero_pad(q*3+1, 2) + "-01/P3M");
           tick.last = q == 3;
           tick.label = q+1;
           ticks.push(tick);
@@ -68,7 +68,7 @@ function grph_scale_period() {
       } 
       if (scale.has_month()) {
         for (var m = 0; m < 12; m++) {
-          tick = date_period(year + "-" + zeroPad(m+1,2) + "-01/P1M");
+          tick = date_period(year + "-" + zero_pad(m+1,2) + "-01/P1M");
           tick.last = (scale.has_quarter() && ((m+1) % 3) === 0) || m == 11;
           tick.label = m+1;
           ticks.push(tick);
