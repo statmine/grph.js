@@ -7,7 +7,7 @@
     "example": "examples"
   },
   "devDependencies": {
-    "gulp": "^3.8.10",
+    "gulp": "^3.8.11",
     "gulp-concat": "^2.4.3",
     "gulp-jshint": "^1.9.2",
     "gulp-less": "^2.0.1",

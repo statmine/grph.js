@@ -78,7 +78,7 @@ function grph_axis_period() {
 
   axis.accept = function(variable, schema) {
     var vschema = variable_schema(variable, schema);
-    return vschema.type == 'date';
+    return vschema.type == 'date' || vschema.type == 'period';
   };
 
   axis.variable = function(v) {

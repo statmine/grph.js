@@ -71,13 +71,24 @@ function categorical_formatter(field){
 		cat_titles[cat.name] = cat.title || cat.name;
 	}
 	return function(value){
-		return cat_titles[value];
+		return cat_titles[value] || "(" + value + ")";
 	};
 }
 
+FACTOR = /x ?(\d ?\d*)(.*)/
+
 function number_formatter(field){
 	//TODO use rounding?
+	var unit = field.unit || "";
+	var factor = 1;
+	
+	if (FACTOR.test(unit)){
+		var m = FACTOR.exec(unit);
+		factor = parseInt(m[1].replace(" ", ""))
+		unit = m[2];
+	}
+
 	return function(value){
-		return value.toString();
+		return (factor*value).toLocaleString() + " " + unit || "-";
 	};
 }
