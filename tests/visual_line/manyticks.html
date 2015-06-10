@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="../../js/d3.v3.min.js"></script>
+    <script src="../../js/d3-tip.js"></script>
+    <script src="../../js/grph.js"></script>
+
+    <link href="../../css/dark.css" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        background: #404040;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="graph">
+    </div>
+
+    <script type="text/javascript">
+
+      var w = 700, h = 400;
+
+      d3.json("data.json", function(error, data) {
+
+        data = data.filter(function(d, i) {
+          return i < 250;
+        });
+
+        var schema = {
+          'fields' : [
+            { 
+              'name' : 'date', 'title' : 'Month', 
+              'description' : '', 'type' : 'date'
+            }, { 
+              'name' : 'y', 'title' : 'Value', 
+              'description' : '', 'type' : 'number'
+            }
+          ]
+        };
+
+        var svg = d3.select("#graph").insert("svg")
+          .attr("width", w).attr("height", h);
+
+        var graph = grph.line();
+        graph.width(w).height(h).schema(schema).assign({
+          'x' : 'date',
+          'y' : 'y'
+        }).data(data);
+        graph(svg);
+      });
+
+    </script>
+
+
+  </body>
+
+</html>
+
+
+

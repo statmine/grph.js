@@ -5,17 +5,48 @@ function grph_axis_period() {
   var height_;
   var variable_;
   var settings = {
-    "tick_length" : [15, 30, 45]
+    "tick_length" : [15, 30, 45],
+    "tick-threshold" : 7,
+    "label-threshold" : 13
   };
+
+  // checks if we need/want to draw tickmarks and labels for months and 
+  // quarters. This depends on the density. When th density becomes too 
+  // large first no labels are drawn; when higher the ticksmarks are also
+  // not drawn. 
+  function determine_what_to_draw(ticks) {
+    // determine if we want to draw ticks and labels for months
+    var n = ticks.filter(function(t) {return t.type == "month";}).length;
+    var d = (scale_.range()[1] - scale_.range()[0]) / n;
+    var month_ticks  = scale_.has_month() && d > settings['tick-threshold'];
+    var month_labels = scale_.has_month() && d > settings['label-threshold'];
+    // determine if we want to draw ticks and labels for quarters
+    n = ticks.filter(function(t) {return t.type == "quarter";}).length;
+    d = (scale_.range()[1] - scale_.range()[0]) / n;
+    var quarter_ticks  = scale_.has_quarter() && d > settings['tick-threshold'];
+    var quarter_labels = scale_.has_quarter() && d > settings['label-threshold'];
+    return {month : {ticks : month_ticks, labels : month_labels},
+      quarter : {ticks : quarter_ticks, labels : quarter_ticks}};
+  }
 
   var axis = function(g) {
     var ticks = scale_.ticks();
 
+    var to_draw = determine_what_to_draw(ticks);
+
     var tick_length = {};
     var tick = 0;
-    if (scale_.has_month()) tick_length.month = settings.tick_length[tick++];
-    if (scale_.has_quarter()) tick_length.quarter = settings.tick_length[tick++];
+    if (to_draw.month.ticks) tick_length.month = settings.tick_length[tick++];
+    if (to_draw.quarter.ticks) tick_length.quarter = settings.tick_length[tick++];
     tick_length.year = settings.tick_length[tick++];
+
+    // draw the tick marks
+    // remove tickmarks that do not need to be drawn
+    ticks = ticks.filter(function(d) {
+      if (d.type == 'quarter' && !to_draw.quarter.ticks) return false;
+      if (d.type == 'month' && !to_draw.month.ticks) return false;
+      return true;
+    });
 
     g.selectAll("line.tick-end").data(ticks).enter().append("line")
       .attr("class", function(d) { 
@@ -35,6 +66,15 @@ function grph_axis_period() {
       .attr("y1", 0)
       .attr("x2", function(d) { return scale_(d.period.start);})
       .attr("y2", function(d) { return tick_length[d.type];});
+
+    // draw the labels
+    // remove tickmarks that do not need to be drawn
+    ticks = ticks.filter(function(d) {
+      if (d.type == 'quarter' && !to_draw.quarter.labels) return false;
+      if (d.type == 'month' && !to_draw.month.labels) return false;
+      return true;
+    });
+
     g.selectAll("text").data(ticks).enter().append("text")
       .attr("class", function(d) { return "ticklabel ticklabel" + d.type;})
       .attr("x", function(d) { return scale_(d.date);})
