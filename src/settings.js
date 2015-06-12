@@ -11,7 +11,8 @@ var settings = function() {
       'default_bubble' : 5,
       'bar_padding' : 0.4,
       'tick_length' : 5,
-      'tick_padding' : 2
+      'tick_padding' : 2,
+      'period_coverage' : 0.85
     }
   };
 

@@ -26,7 +26,7 @@
       d3.json("data.json", function(error, data) {
 
         data = data.filter(function(d, i) {
-          return i < 250;
+          return i > 10 && i < 35;
         });
 
         var schema = {
