@@ -30,6 +30,9 @@ function grph_graph_bubble() {
         .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
         .attr("r", axes.size.scale);
     }
+    // draw lines
+    g.selectAll("g.line").data(lines).enter().append("g").attr("class", "line")
+      .each(function(d) { d.draw(this, d, axes);});
   });
 
 
@@ -95,6 +98,35 @@ function grph_graph_bubble() {
       tip.hide(variable, value, d);
     });
   }
+
+  
+  var lines = [];
+  graph.add_hline = function(h, classname) {
+    function draw_hline(g, data, axes) {
+      var xmin = axes.x.scale(axes.x.domain()[0]);
+      var xmax = axes.x.scale(axes.x.domain()[1]);
+      d3.select(g).append("line")
+        .attr("x1", xmin).attr("x2", xmax)
+        .attr("y1", axes.y.scale(data.h))
+        .attr("y2", axes.y.scale(data.h))
+        .attr("class", data['class']);
+    }
+    lines.push({draw : draw_hline, h : h, 'class' : classname});
+    return this;
+  };
+  graph.add_abline = function(a, b, classname) {
+    function draw_hline(g, data, axes) {
+      var domain = axes.x.domain();
+      d3.select(g).append("line")
+        .attr("x1", axes.x.scale(domain[0]))
+        .attr("x2", axes.x.scale(domain[1]))
+        .attr("y1", axes.y.scale(a + b * domain[0]))
+        .attr("y2", axes.y.scale(a + b * domain[1]))
+        .attr("class", data['class']);
+    }
+    lines.push({draw : draw_hline, a : a, b: b, 'class' : classname});
+    return this;
+  };
 
 
   return graph;

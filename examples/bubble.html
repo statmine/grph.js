@@ -12,6 +12,10 @@
       body {
         background: #FFFFFF;
       }
+      .hline {
+        stroke: black;
+        stroke-width: 1;
+      }
     </style>
   </head>
   <body>
@@ -93,6 +97,10 @@
         'colour' : 'gender',
         'column' : 'age'
       }).data(data);
+
+      graph.add_hline(150, "hline");
+      graph.add_abline(10, 1, "hline");
+
       graph(svg);
 
     </script>

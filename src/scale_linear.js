@@ -14,14 +14,11 @@ function grph_scale_linear() {
   }
 
   scale.domain = function(d) {
+    if (arguments.length === 0) return lscale.domain();
     d = lscale.domain(d);
     ndec_ = undefined;
     ticks_ = undefined;
-    if (arguments.length === 0) {
-      return d;
-    } else {
-      return this;
-    }
+    return this;
   };
 
   scale.range = function(r) {
