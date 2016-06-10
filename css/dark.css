@@ -6,7 +6,7 @@ svg * {
   font-size: 12px;
 }
 text {
-  fill: #bbbbbb;
+  fill: #BBBBBB;
 }
 path,
 line {
@@ -36,7 +36,7 @@ rect.background {
   fill: #404040;
 }
 .crosshairs line {
-  stroke: #bbbbbb;
+  stroke: #BBBBBB;
   stroke-width: 0.5pt;
   stroke-dasharray: 5,5;
 }
@@ -50,49 +50,49 @@ div.tip {
   padding: 5px;
   font-family: Corbel, Helvetica, sans-serif;
   font-size: 12px;
-  color: #bbbbbb;
+  color: #BBBBBB;
   background: rgba(0, 0, 0, 0.5);
 }
 rect.colour1,
 circle.colour1 {
-  fill: #52a146;
+  fill: #52A146;
   fill-opacity: 0.8;
-  stroke: #52a146;
+  stroke: #52A146;
   stroke-opacity: 1;
 }
 rect.colour2,
 circle.colour2 {
-  fill: #da6db6;
+  fill: #DA6DB6;
   fill-opacity: 0.8;
-  stroke: #da6db6;
+  stroke: #DA6DB6;
   stroke-opacity: 1;
 }
 rect.colour3,
 circle.colour3 {
-  fill: #4294ad;
+  fill: #4294AD;
   fill-opacity: 0.8;
-  stroke: #4294ad;
+  stroke: #4294AD;
   stroke-opacity: 1;
 }
 rect.colour4,
 circle.colour4 {
-  fill: #c97b2a;
+  fill: #C97B2A;
   fill-opacity: 0.8;
-  stroke: #c97b2a;
+  stroke: #C97B2A;
   stroke-opacity: 1;
 }
 rect.colour5,
 circle.colour5 {
-  fill: #818dda;
+  fill: #818DDA;
   fill-opacity: 0.8;
-  stroke: #818dda;
+  stroke: #818DDA;
   stroke-opacity: 1;
 }
 rect.colour6,
 circle.colour6 {
-  fill: #d45671;
+  fill: #D45671;
   fill-opacity: 0.8;
-  stroke: #d45671;
+  stroke: #D45671;
   stroke-opacity: 1;
 }
 rect.colour7,
@@ -104,16 +104,16 @@ circle.colour7 {
 }
 rect.colour8,
 circle.colour8 {
-  fill: #d85f46;
+  fill: #D85F46;
   fill-opacity: 0.8;
-  stroke: #d85f46;
+  stroke: #D85F46;
   stroke-opacity: 1;
 }
 rect.colour9,
 circle.colour9 {
-  fill: #9d6ea7;
+  fill: #9D6EA7;
   fill-opacity: 0.8;
-  stroke: #9d6ea7;
+  stroke: #9D6EA7;
   stroke-opacity: 1;
 }
 rect.colour.colourlow,
@@ -122,37 +122,37 @@ circle.colour.colourlow {
 }
 line.colour1,
 path.colour1 {
-  stroke: #52a146;
+  stroke: #52A146;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour2,
 path.colour2 {
-  stroke: #da6db6;
+  stroke: #DA6DB6;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour3,
 path.colour3 {
-  stroke: #4294ad;
+  stroke: #4294AD;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour4,
 path.colour4 {
-  stroke: #c97b2a;
+  stroke: #C97B2A;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour5,
 path.colour5 {
-  stroke: #818dda;
+  stroke: #818DDA;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour6,
 path.colour6 {
-  stroke: #d45671;
+  stroke: #D45671;
   stroke-opacity: 1;
   fill: none;
 }
@@ -164,13 +164,13 @@ path.colour7 {
 }
 line.colour8,
 path.colour8 {
-  stroke: #d85f46;
+  stroke: #D85F46;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour9,
 path.colour9 {
-  stroke: #9d6ea7;
+  stroke: #9D6EA7;
   stroke-opacity: 1;
   fill: none;
 }

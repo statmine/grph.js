@@ -1,5 +1,5 @@
 svg {
-  background: #ffffff;
+  background: #FFFFFF;
 }
 svg * {
   font-family: Corbel, Helvetica, sans-serif;
@@ -10,7 +10,7 @@ text {
 }
 path,
 line {
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-width: 1pt;
   fill: none;
 }
@@ -33,7 +33,7 @@ rect.background {
   stroke: 0pt;
 }
 .panel rect.background {
-  fill: #e8e8e8;
+  fill: #E8E8E8;
 }
 .crosshairs line {
   stroke: #000000;
@@ -55,65 +55,65 @@ div.tip {
 }
 rect.colour1,
 circle.colour1 {
-  fill: #89902f;
+  fill: #89902F;
   fill-opacity: 0.8;
-  stroke: #89902f;
+  stroke: #89902F;
   stroke-opacity: 1;
 }
 rect.colour2,
 circle.colour2 {
-  fill: #9577a8;
+  fill: #9577A8;
   fill-opacity: 0.8;
-  stroke: #9577a8;
+  stroke: #9577A8;
   stroke-opacity: 1;
 }
 rect.colour3,
 circle.colour3 {
-  fill: #c76750;
+  fill: #C76750;
   fill-opacity: 0.8;
-  stroke: #c76750;
+  stroke: #C76750;
   stroke-opacity: 1;
 }
 rect.colour4,
 circle.colour4 {
-  fill: #3d8f80;
+  fill: #3D8F80;
   fill-opacity: 0.8;
-  stroke: #3d8f80;
+  stroke: #3D8F80;
   stroke-opacity: 1;
 }
 rect.colour5,
 circle.colour5 {
-  fill: #539d57;
+  fill: #539D57;
   fill-opacity: 0.8;
-  stroke: #539d57;
+  stroke: #539D57;
   stroke-opacity: 1;
 }
 rect.colour6,
 circle.colour6 {
-  fill: #c06583;
+  fill: #C06583;
   fill-opacity: 0.8;
-  stroke: #c06583;
+  stroke: #C06583;
   stroke-opacity: 1;
 }
 rect.colour7,
 circle.colour7 {
-  fill: #5687aa;
+  fill: #5687AA;
   fill-opacity: 0.8;
-  stroke: #5687aa;
+  stroke: #5687AA;
   stroke-opacity: 1;
 }
 rect.colour8,
 circle.colour8 {
-  fill: #a97930;
+  fill: #A97930;
   fill-opacity: 0.8;
-  stroke: #a97930;
+  stroke: #A97930;
   stroke-opacity: 1;
 }
 rect.colour9,
 circle.colour9 {
-  fill: #5a743a;
+  fill: #5A743A;
   fill-opacity: 0.8;
-  stroke: #5a743a;
+  stroke: #5A743A;
   stroke-opacity: 1;
 }
 rect.colour.colourlow,
@@ -122,55 +122,55 @@ circle.colour.colourlow {
 }
 line.colour1,
 path.colour1 {
-  stroke: #89902f;
+  stroke: #89902F;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour2,
 path.colour2 {
-  stroke: #9577a8;
+  stroke: #9577A8;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour3,
 path.colour3 {
-  stroke: #c76750;
+  stroke: #C76750;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour4,
 path.colour4 {
-  stroke: #3d8f80;
+  stroke: #3D8F80;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour5,
 path.colour5 {
-  stroke: #539d57;
+  stroke: #539D57;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour6,
 path.colour6 {
-  stroke: #c06583;
+  stroke: #C06583;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour7,
 path.colour7 {
-  stroke: #5687aa;
+  stroke: #5687AA;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour8,
 path.colour8 {
-  stroke: #a97930;
+  stroke: #A97930;
   stroke-opacity: 1;
   fill: none;
 }
 line.colour9,
 path.colour9 {
-  stroke: #5a743a;
+  stroke: #5A743A;
   stroke-opacity: 1;
   fill: none;
 }
@@ -181,63 +181,63 @@ path.colour.colourlow {
 .chloro1 {
   fill: #f7fcf0;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro2 {
   fill: #e0f3db;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro3 {
   fill: #ccebc5;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro4 {
   fill: #a8ddb5;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro5 {
   fill: #7bccc4;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro6 {
   fill: #4eb3d3;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro7 {
   fill: #2b8cbe;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro8 {
   fill: #0868ac;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
 .chloro9 {
   fill: #084081;
   fill-opacity: 1;
-  stroke: #ffffff;
+  stroke: #FFFFFF;
   stroke-opacity: 1;
   stroke-width: 0.5pt;
 }
