@@ -19,6 +19,7 @@ function grph_scale_colour() {
     if (arguments.length === 0) {
       return domain;
     } else {
+      domain = d;
       ncolours = d ? d.length: undefined;
       return this;
     }
