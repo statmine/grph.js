@@ -44,7 +44,10 @@ function grph_axis_colour() {
     if (arguments.length === 0) {
       return scale.domain();
     } else {
-      if (variable_ === undefined) return this;
+      if (variable_ === undefined) {
+        scale.domain(undefined);
+        return this;
+      }
       var vschema = variable_schema(variable_, schema);
       var categories = [];
       if (vschema.type == "categorical") {
@@ -67,7 +70,7 @@ function grph_axis_colour() {
   };
 
   axis.scale = function(v) {
-    if (typeof v == 'object') { 
+    if (typeof v == 'object') {
       return scale(v[variable_]);
     } else {
       return scale(v);
@@ -79,4 +82,3 @@ function grph_axis_colour() {
 
 if (grph.axis === undefined) grph.axis = {};
 grph.axis.colour = grph_axis_colour();
-

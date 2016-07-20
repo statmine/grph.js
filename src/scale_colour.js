@@ -19,8 +19,7 @@ function grph_scale_colour() {
     if (arguments.length === 0) {
       return domain;
     } else {
-      domain = d;
-      ncolours = d.length;
+      ncolours = d ? d.length: undefined;
       return this;
     }
   };
@@ -43,4 +42,3 @@ function grph_scale_colour() {
 
 if (grph.scale === undefined) grph.scale = {};
 grph.scale.colour = grph_scale_colour();
-
