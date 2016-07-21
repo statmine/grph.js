@@ -33,14 +33,14 @@ function date_period(str) {
   if (basic_year_regexp.test(str)) {
     str = basic_year_regexp.exec(str);
     year = +str[1];
-    t0 = moment([+str[1]]);
+    t0 = moment.utc([+str[1]]);
     dt = moment.duration(1, "year");
     p  = dt.afterMoment(t0);
     t  = t0.add(moment.duration(p.length()/2));
     return {type: "year", date: t, period: p};
   } else if (basic_month_regexp.test(str)) {
     str = basic_month_regexp.exec(str);
-    t0 = moment([+str[1], +str[2]-1]);
+    t0 = moment.utc([+str[1], +str[2]-1]);
     dt = moment.duration(1, "month");
     p  = dt.afterMoment(t0);
     t  = t0.add(moment.duration(p.length()/2));
@@ -49,14 +49,14 @@ function date_period(str) {
     str = basic_quarter_regexp.exec(str);
     year    = +str[1];
     var quarter = +str[2];
-    t0 = moment([+str[1], (+str[2]-1)*3]);
+    t0 = moment.utc([+str[1], (+str[2]-1)*3]);
     dt = moment.duration(3, "month");
     p  = dt.afterMoment(t0);
     t  = t0.add(moment.duration(p.length()/2));
     return {type: "quarter", date: t, period: p};
   } else if (typeof(str) == "string") {
     str = str.split("/");
-    t0   = moment(str[0], moment.ISO_8601);
+    t0   = moment.utc(str[0], moment.ISO_8601);
     if (str.length == 1) {
       dt = moment.duration(0);
       return {type: "date", date: t0, period: dt.afterMoment(t0)};
@@ -65,9 +65,9 @@ function date_period(str) {
       p  = dt.afterMoment(t0);
       t  = t0.add(moment.duration(p.length()/2));
       var type = "period";
-      if (is_year(p)) { 
+      if (is_year(p)) {
         type = "year";
-      } else if (is_quarter(p)) { 
+      } else if (is_quarter(p)) {
         type = "quarter";
       } else if (is_month(p)) {
         type = "month";
@@ -75,9 +75,8 @@ function date_period(str) {
       return {type: type, date: t, period: p};
     }
   } else {
-    t0   = moment(str);
+    t0   = moment.utc(str);
     dt = moment.duration(0);
     return {type: "date", date: t0, period: dt.afterMoment(t0)};
   }
 }
-
