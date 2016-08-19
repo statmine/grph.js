@@ -4,6 +4,7 @@ function grph_axis_categorical() {
   var scale = grph_scale_categorical();
   var width;
   var variable, height;
+  var tick_format = function(x){return x;};
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "axis_categorical dummy")
@@ -24,7 +25,7 @@ function grph_axis_categorical() {
       .append("text").attr("class", "ticklabel")
       .attr("x", axis.width() - settings("tick_length") - settings("tick_padding"))
       .attr("y", scale.m)
-      .text(function(d) { return d;})
+      .text(function(d) { return tick_format(d);})
       .attr("text-anchor", "end")
       .attr("dy", "0.35em");
     g.append("line").attr("class", "axisline")
@@ -77,11 +78,19 @@ function grph_axis_categorical() {
     if (arguments.length === 0) {
       return scale.domain();
     } else {
-      var d = data.map(function(d) { return d[variable];});
-      // filter out duplicate values
-      var domain = d.filter(function(value, index, self) {
-        return self.indexOf(value) === index;
-      });
+      if (variable === undefined) return this;
+      var vschema = variable_schema(variable, schema);
+      var domain = [];
+      if (vschema.type == "categorical") {
+        domain = vschema.categories.map(function(d) { return d.name; });
+      } else {
+        var d = data.map(function(d) { return d[variable];});
+              // filter out duplicate values
+        domain = d.filter(function(value, index, self) {
+          return self.indexOf(value) === index;
+        });
+      }
+      tick_format = variable_value_formatter(variable, schema);
       scale.domain(domain);
       return this;
     }
