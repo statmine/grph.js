@@ -38,10 +38,10 @@ function grph_axis_categorical() {
       var ticks = scale.ticks();
       var max_width = 0;
       for (var i = 0; i < ticks.length; ++i) {
-        var lw = label_size_.width(ticks[i]);
+        var lw = label_size_.width(tick_format(ticks[i]));
         if (lw > max_width) max_width = lw;
       }
-      width = max_width + settings("tick_length") + settings("tick_padding");  
+      width = max_width + settings("tick_length") + settings("tick_padding");
       return width;
     } else {
       width = w;
@@ -101,7 +101,7 @@ function grph_axis_categorical() {
   };
 
   axis.scale = function(v) {
-    if (typeof v == 'object') { 
+    if (typeof v == 'object') {
       return scale(v[variable]).m;
     } else {
       return scale(v).m;
@@ -109,7 +109,7 @@ function grph_axis_categorical() {
   };
 
   axis.scale.l = function(v) {
-    if (typeof v == 'object') { 
+    if (typeof v == 'object') {
       return scale(v[variable]).l;
     } else {
       return scale(v).l;
@@ -117,7 +117,7 @@ function grph_axis_categorical() {
   };
 
   axis.scale.u = function(v) {
-    if (typeof v == 'object') { 
+    if (typeof v == 'object') {
       return scale(v[variable]).u;
     } else {
       return scale(v).u;
@@ -126,7 +126,7 @@ function grph_axis_categorical() {
 
   axis.scale.w = function(v) {
     var r;
-    if (typeof v == 'object') { 
+    if (typeof v == 'object') {
       r = scale(v[variable]);
     } else {
       r = scale(v);
@@ -139,4 +139,3 @@ function grph_axis_categorical() {
 
 if (grph.axis === undefined) grph.axis = {};
 grph.axis.categorical = grph_axis_categorical();
-
