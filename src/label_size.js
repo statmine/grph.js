@@ -4,7 +4,7 @@ function grph_label_size(g) {
   // a svg or g element to which  we will be adding our label in order to
   // request it's size
   var g_ = g;
-  var format_ = function(x){return x;}
+  var format_ = function(x){return x;};
   // store previously calculated values; as the size of certain labels are 
   // requested again and again this greatly enhances performance
   var sizes_ = {};
@@ -50,7 +50,7 @@ function grph_label_size(g) {
       format_ = format;
     }
     return this;
-  }
+  };
 
   return label_size;
 }
