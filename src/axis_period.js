@@ -8,7 +8,7 @@ function grph_axis_period() {
     "tick_length" : [15, 30, 45],
     "tick-threshold" : 7,
     "label-year-small" : 30,
-    "label-threshold" : 13
+    "label-threshold" : 15
   };
 
   // checks if we need/want to draw tickmarks and labels for months and
@@ -30,12 +30,11 @@ function grph_axis_period() {
     // labels
     n = ticks.filter(function(t) {return t.type == "year";}).length;
     d = (scale_.range()[1] - scale_.range()[0]) / n;
-    console.log('n=', n, '; d=', d);
     var year_labels = d > settings['label-threshold'];
     var year_small = d < settings['label-year-small'];
     return {
       month : {ticks : month_ticks, labels : month_labels},
-      quarter : {ticks : quarter_ticks, labels : quarter_ticks},
+      quarter : {ticks : quarter_ticks, labels : quarter_labels},
       year : {ticks: true, labels : year_labels, small: year_small}
     };
   }

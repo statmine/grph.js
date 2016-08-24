@@ -32,13 +32,14 @@ function grph_scale_period() {
       return d.period.end;
     });
     var year_min = min.year();
-    var year_max = max.year();
+    // max, is often 1st of January; period runs #until# 1st of janury
+    var year_max = (max.subtract(1, "seconds")).year();
     // first attempt: plot complete years
     var domain_min = new Date(year_min + "-01-01");
     var domain_max = new Date((year_max+1) + "-01-01");
     var coverage = (max - min) / (domain_max - domain_min);
     if (coverage > settings('period_coverage')) return [domain_min, domain_max];
-    // not enough coverage; determine if starting year or last year has least 
+    // not enough coverage; determine if starting year or last year has least
     // coverage
     var year_min_coverage = new Date((year_min+1) + "-01-01") - min;
     var year_max_coverage = max - new Date(year_max + "-01-01");
@@ -81,7 +82,7 @@ function grph_scale_period() {
 
   scale.ticks = function() {
     function is_inside_domain(period, domain) {
-      return (period.period.start >= domain[0]) && 
+      return (period.period.start >= domain[0]) &&
         (period.period.end <= domain[1]);
     }
 
@@ -100,7 +101,7 @@ function grph_scale_period() {
           if (is_inside_domain(tick, time_scale.domain()))
             ticks.push(tick);
         }
-      } 
+      }
       if (scale.has_month()) {
         for (var m = 0; m < 12; m++) {
           tick = date_period(year + "-" + zero_pad(m+1,2) + "-01/P1M");
@@ -109,7 +110,7 @@ function grph_scale_period() {
           if (is_inside_domain(tick, time_scale.domain()))
             ticks.push(tick);
         }
-      } 
+      }
     }
     return ticks;
   };
@@ -120,4 +121,3 @@ function grph_scale_period() {
 
 if (grph.scale === undefined) grph.scale = {};
 grph.scale.period = grph_scale_period();
-
