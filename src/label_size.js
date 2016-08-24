@@ -4,6 +4,7 @@ function grph_label_size(g) {
   // a svg or g element to which  we will be adding our label in order to
   // request it's size
   var g_ = g;
+  var format_ = function(x){return x;}
   // store previously calculated values; as the size of certain labels are 
   // requested again and again this greatly enhances performance
   var sizes_ = {};
@@ -13,7 +14,7 @@ function grph_label_size(g) {
       return sizes_[label];
     }
     if (!g_) return [undefined, undefined];
-    var text = g_.append("text").text(label);
+    var text = g_.append("text").text(format_(label));
     var bbox = text[0][0].getBBox();
     var size = [bbox.width*1.2, bbox.height*0.65]; // TODO why; and is this always correct
     //var size = horizontal_ ? text[0][0].getComputedTextLength() :
@@ -41,6 +42,15 @@ function grph_label_size(g) {
     var size = label_size(label);
     return size[1];
   };
+
+  label_size.format = function(format){
+    if (arguments.length === 0){
+      return format_;
+    } else {
+      format_ = format;
+    }
+    return this;
+  }
 
   return label_size;
 }

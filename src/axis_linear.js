@@ -11,7 +11,6 @@ function grph_axis_linear(horizontal) {
     "tick_padding" : 2,
     "padding" : 4
   };
-  var tick_format = function(x){return x;};
 
   var dummy_ = d3.select("body").append("svg")
     .attr("class", "linearaxis dummy")
@@ -23,6 +22,7 @@ function grph_axis_linear(horizontal) {
   
 
   function axis(g) {
+    var tick_format = label_size_.format();
     var w = axis.width();
     var ticks = axis.ticks();
     g.append("rect").attr("class", "background")
@@ -35,7 +35,7 @@ function grph_axis_linear(horizontal) {
       g.selectAll(".ticklabel").data(ticks).enter()
         .append("text").attr("class", "ticklabel")
         .attr("x", scale_).attr("y", settings_.tick_length + settings_.tick_padding)
-        .text(function(d) { return d;})
+        .text(function(d) { return tick_format(d);})
         .attr("text-anchor", "middle")
         .attr("dy", "0.71em");
     } else {
@@ -70,7 +70,7 @@ function grph_axis_linear(horizontal) {
         var ticks = scale_.ticks();
         var w = 0;
         for (var i = 0; i < ticks.length; ++i) {
-          var lw = label_size_.width(tick_format(ticks[i]));
+          var lw = label_size_.width(ticks[i]);
           if (lw > w) w = lw;
         }
         width_ = w + settings_.tick_length + settings_.tick_padding + settings_.padding;  
@@ -138,7 +138,7 @@ function grph_axis_linear(horizontal) {
         if (range[1] < origin_) range[1] = origin_;
       }
       scale_.domain(range).nice();
-      tick_format = variable_value_formatter(variable_, schema);
+      label_size_.format(variable_value_formatter(variable_, schema));
       return this;
     }
   };
