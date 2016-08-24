@@ -22,6 +22,7 @@ function grph_axis_linear(horizontal) {
   
 
   function axis(g) {
+    var tick_format = label_size_.format();
     var w = axis.width();
     var ticks = axis.ticks();
     g.append("rect").attr("class", "background")
@@ -34,7 +35,7 @@ function grph_axis_linear(horizontal) {
       g.selectAll(".ticklabel").data(ticks).enter()
         .append("text").attr("class", "ticklabel")
         .attr("x", scale_).attr("y", settings_.tick_length + settings_.tick_padding)
-        .text(function(d) { return d;})
+        .text(function(d) { return tick_format(d);})
         .attr("text-anchor", "middle")
         .attr("dy", "0.71em");
     } else {
@@ -45,7 +46,7 @@ function grph_axis_linear(horizontal) {
       g.selectAll(".ticklabel").data(ticks).enter()
         .append("text").attr("class", "ticklabel")
         .attr("x", settings_.padding).attr("y", scale_)
-        .text(function(d) { return d;})
+        .text(function(d) { return tick_format(d);})
         .attr("text-anchor", "begin")
         .attr("dy", "0.35em");
     }
@@ -137,6 +138,7 @@ function grph_axis_linear(horizontal) {
         if (range[1] < origin_) range[1] = origin_;
       }
       scale_.domain(range).nice();
+      label_size_.format(variable_value_formatter(variable_, schema));
       return this;
     }
   };
