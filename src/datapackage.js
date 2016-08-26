@@ -85,7 +85,19 @@ function number_formatter(field){
   if (FACTOR.test(unit)){
     var m = FACTOR.exec(unit);
     factor = parseInt(m[1].replace(" ", ""));
-    unit = m[2];
+    unit = m[2].trimLeft();
+  }
+
+  if (unit == "%"){
+    return function(value){
+      return (factor*value).toLocaleString() + "%";    
+    }
+  }
+
+  if (unit == "euro"){
+    return function(value) {
+      return "€" + (factor*value).toLocaleString();
+    }
   }
 
   return function(value){
