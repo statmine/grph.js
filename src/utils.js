@@ -18,9 +18,9 @@ function zero_pad(num, length) {
 // - Add a thousands separator (grp)
 function format_number(label, unit, ndec, dec, grp) {
   if (isNaN(label)) return '';
-  if (unit === undefined) unit = '';
-  if (dec === undefined) dec = '.';
-  if (grp === undefined) grp = '';
+  var unit = unit || '';
+  var dec = dec || '.';
+  var grp = grp || ' ';
   // round number
   if (ndec !== undefined) {
     label = label.toFixed(ndec);
