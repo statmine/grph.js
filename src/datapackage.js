@@ -91,13 +91,18 @@ function number_formatter(field){
   if (unit == "%"){
     return function(value){
       return (factor*value).toLocaleString() + "%";    
-    }
+    };
   }
 
-  if (unit == "euro"){
-    return function(value) {
-      return "€" + (factor*value).toLocaleString();
+  var in_euro = /\s?\beuro$/; 
+  if (in_euro.test(unit)){
+    unit = unit.replace(in_euro, "");
+    if (unit.length) {
+      unit = " " + unit;
     }
+    return function(value) {
+      return "€ " + (factor*value).toLocaleString() + unit;
+    };
   }
 
   return function(value){

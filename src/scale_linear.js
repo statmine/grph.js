@@ -91,7 +91,7 @@ function grph_scale_linear() {
   scale.ticks = function() {
     if (ticks_ === undefined) return lscale.ticks(nticks_);
     return ticks_;
-    return ticks_.map(function(t) { return format_number(t, "", ndec_);});
+    //return ticks_.map(function(t) { return format_number(t, "", ndec_);});
   };
 
   return scale;
