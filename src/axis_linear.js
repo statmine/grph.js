@@ -67,9 +67,8 @@ function grph_axis_linear(horizontal) {
       // if vertical the width is usually defined by the graph: the space it
       // needs to draw the tickmarks and labels etc. 
       if (arguments.length === 0) {
-        var tick_format = label_size_.format();
-        var ticks = scale_.ticks()
-          .map(tick_format);
+        //var tick_format = label_size_.format();
+        var ticks = scale_.ticks();
         var w = 0;
         for (var i = 0; i < ticks.length; ++i) {
           var lw = label_size_.width(ticks[i]);

@@ -106,6 +106,6 @@ function number_formatter(field){
   }
 
   return function(value){
-    return (factor*value).toLocaleString() + " " + unit || "-";
+    return (factor*value).toLocaleString() + " " + unit;
   };
 }
