@@ -13,10 +13,14 @@ function grph_graph_line() {
   var dispatch = d3.dispatch("mouseover", "mouseout", "pointover", "pointout",
     "click", "ready");
 
+  var point_size = settings('point_size');
+
   var graph = grph_generic_graph(axes, dispatch, "line", function(g, data) {
     function nest_colour(d) {
       return axes.colour.variable() ? d[axes.colour.variable()] : 1;
     }
+    point_size = settings('point_size');
+
     var d = d3.nest().key(nest_colour).entries(data);
     // draw lines 
     var y_var = axes.y.variable();
@@ -35,7 +39,6 @@ function grph_graph_line() {
     }
 
     // draw points 
-    var point_size = settings('point_size');
     if (d.length > 0){
       var N = d[0].values.length;
       point_size = Math.min(point_size, (axes.x.width()) / (3*N));
@@ -62,12 +65,12 @@ function grph_graph_line() {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseover.call(self, variable, value, d);
-      if (!d.key) dispatch.pointover.call(self, variable, value, d);
+      if (!d.key) dispatch.pointover.call(self, variable, value, d, d3.select(this));
     }).on("mouseout", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
       dispatch.mouseout.call(self, variable, value, d);
-      if (!d.key) dispatch.pointout.call(self, variable, value, d);
+      if (!d.key) dispatch.pointout.call(self, variable, value, d, d3.select(this));
     }).on("click", function(d, i) {
       var variable = axes.colour.variable();
       var value = variable ? (d.key || d[variable]) : undefined;
@@ -88,16 +91,20 @@ function grph_graph_line() {
   dispatch.on("mouseout", function(variable, value, d) {
     this.selectAll(".colour").classed({"colourhigh": false, "colourlow": false});
   });
+
   // Show crosshairs when hovering over a point
-  dispatch.on("pointover", function(variable, value, d) {
+  dispatch.on("pointover", function(variable, value, d, point) {
     this.selectAll(".hline").attr("y1", axes.y.scale(d)).attr("y2", axes.y.scale(d))
       .style("visibility", "visible");
     this.selectAll(".vline").attr("x1", axes.x.scale(d)).attr("x2", axes.x.scale(d))
       .style("visibility", "visible");
+    point.attr("r", 1); 
+  
   });
-  dispatch.on("pointout", function(variable, value, d) {
+  dispatch.on("pointout", function(variable, value, d, point) {
     this.selectAll(".hline").style("visibility", "hidden");
     this.selectAll(".vline").style("visibility", "hidden");
+    point.attr("r", point_size);
   });
 
   // Tooltip
