@@ -21,22 +21,36 @@ function grph_graph_line() {
     // draw lines 
     var y_var = axes.y.variable();
     var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale);
-    line.defined(function(d){
-      return (isFinite(d[y_var]) && d[y_var] !==null);
-    });
+    
+    var not_empty = function(d){
+      return (d[y_var] !== null && isFinite(d[y_var]));
+    };
+
+    line.defined(not_empty);
 
     for (var i = 0; i < d.length; ++i) {
       g.append("path").attr("d", line(d[i].values))
         .attr("class", axes.colour.scale(d[i].key))
         .datum(d[i]);
     }
+
     // draw points 
+    var point_size = settings('point_size');
+    if (d.length > 0){
+      var N = d[0].values.length;
+      point_size = Math.min(point_size, (axes.x.width()) / (3*N));
+      point_size = Math.max(0, point_size);
+      console.log("point size", point_size);
+    }
+    //point_size = 1;
     for (i = 0; i < d.length; ++i) {
       var cls = "circle" + i;
-      g.selectAll("circle.circle" + i).data(d[i].values).enter().append("circle")
-        .attr("class", "circle" + i + " " + axes.colour.scale(d[i].key))
-        .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
-        .attr("r", settings('point_size'));
+      g.selectAll("circle.circle" + i).data(d[i].values.filter(not_empty))
+       .enter()
+        .append("circle")
+         .attr("class", "circle" + i + " " + axes.colour.scale(d[i].key))
+         .attr("cx", axes.x.scale).attr("cy", axes.y.scale)
+         .attr("r", point_size);
     }
   });
 
