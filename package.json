@@ -18,7 +18,8 @@
   "scripts": {
     "start": "gulp watch",
     "build": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "statminer": "npm run build && cp js/grph.* ../statminer/grph/js"
   },
   "repository": {
     "type": "git",
