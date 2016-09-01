@@ -19,7 +19,12 @@ function grph_graph_line() {
     }
     var d = d3.nest().key(nest_colour).entries(data);
     // draw lines 
+    var y_var = axes.y.variable();
     var line = d3.svg.line().x(axes.x.scale).y(axes.y.scale);
+    line.defined(function(d){
+      return (isFinite(d[y_var]) && d[y_var] !==null);
+    });
+
     for (var i = 0; i < d.length; ++i) {
       g.append("path").attr("d", line(d[i].values))
         .attr("class", axes.colour.scale(d[i].key))
