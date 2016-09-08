@@ -2,6 +2,7 @@
 function grph_axis_period() {
 
   var scale_ = grph_scale_period();
+  var scale_year_ = grph_scale_linear();
   var height_;
   var variable_;
   var settings = {
@@ -18,20 +19,33 @@ function grph_axis_period() {
   function determine_what_to_draw(ticks) {
     // determine if we want to draw ticks and labels for months
     var n = ticks.filter(function(t) {return t.type == "month";}).length;
-    var d = (scale_.range()[1] - scale_.range()[0]) / n;
+    var width = scale_.range()[1] - scale_.range()[0]; 
+    var d = width / n;
     var month_ticks  = scale_.has_month() && d > settings['tick-threshold'];
     var month_labels = scale_.has_month() && d > settings['label-threshold'];
     // determine if we want to draw ticks and labels for quarters
     n = ticks.filter(function(t) {return t.type == "quarter";}).length;
-    d = (scale_.range()[1] - scale_.range()[0]) / n;
+    d = width / n;
     var quarter_ticks  = scale_.has_quarter() && d > settings['tick-threshold'];
     var quarter_labels = scale_.has_quarter() && d > settings['label-threshold'];
     // determine if we want to draw all year labels or only the begin and end
     // labels
-    n = ticks.filter(function(t) {return t.type == "year";}).length;
-    d = (scale_.range()[1] - scale_.range()[0]) / n;
-    var year_labels = d > settings['label-threshold'];
-    var year_small = d < settings['label-year-small'];
+    var years = ticks
+      .filter(function(t) {return t.type == "year";})
+      .map(function(y){return +y.label;})
+      ;
+    var nticks = Math.floor(width/(3*settings['label-threshold']));
+    scale_year_
+      .domain(d3.extent(years))
+      .nticks(nticks)
+      //.nice()
+      ;
+    console.log("years", years);
+    console.log("ticks", scale_year_.ticks());
+    console.log("nticks", nticks);
+    n = years.length;
+    var year_labels = width/n > settings['label-threshold'];
+    var year_small = width/nticks < settings['label-year-small'];
     return {
       month : {ticks : month_ticks, labels : month_labels},
       quarter : {ticks : quarter_ticks, labels : quarter_labels},
@@ -82,14 +96,21 @@ function grph_axis_period() {
     console.log(to_draw);
     console.log(ticks);
     var first_year = true;
+    var year_ticks = scale_year_.ticks();
+
     ticks = ticks.filter(function(d) {
       if (d.type == 'quarter' && !to_draw.quarter.labels) return false;
       if (d.type == 'month' && !to_draw.month.labels) return false;
-      if (d.type == 'year' && !to_draw.year.labels) {
-        var first_or_last = d.last || first_year;
-        first_year = false;
-        if (!first_or_last) return false;
+      if (d.type == 'year'){
+        //console.log("year", year_ticks);
+        return year_ticks.indexOf(d.label) > -1;
+        //return true;
       }
+      // if (d.type == 'year' && !to_draw.year.labels) {
+      //   var first_or_last = d.last || first_year;
+      //   first_year = false;
+      //   if (!first_or_last) return false;
+      // }
       return true;
     });
 
@@ -133,6 +154,7 @@ function grph_axis_period() {
       return r[1] - r[0];
     } else {
       scale_.range([0, width]);
+      scale_year_.range(scale_.range());
       return this;
     }
   };

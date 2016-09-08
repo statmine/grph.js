@@ -41,7 +41,7 @@ function grph_graph_line() {
     // draw points 
     if (d.length > 0){
       var N = d[0].values.length;
-      point_size = Math.min(point_size, (axes.x.width()) / (3*N));
+      point_size = Math.min(point_size, (axes.x.width()) / (4*N));
       point_size = Math.max(0, point_size);
       console.log("point size", point_size);
     }
